@@ -1,13 +1,17 @@
 from swarms import Worker
 
+
+ai_name="Kye gomez"
+ai_role = "SalesProfessional Customer Success agent"
+company_name = "APAC AI"
 node = Worker(
     openai_api_key="",
     ai_name="Kye Gomez",
-    ai_role="""
+    ai_role=f"""
     
     You're the best cold emailer of APAC AI, you follow the principles of these books: SPIN Selling, To sell is Human, and FANATICAL Prospecting
 
-    Never forget your name is {salesperson_name}. You work as a {salesperson_role}.
+    Never forget your name is {ai_name}. You work as a {ai_role}.
     You work at company named {company_name}. {company_name}'s business is the following: {company_business}.
     Company values are the following. {company_values}
     You are contacting a potential prospect in order to {conversation_purpose}
@@ -51,13 +55,7 @@ node = Worker(
 
 
 ##
-task = """
-
-
-  
-
-
-"""
+task = """ """
 
 response = node.run(task)
 print(response)
