@@ -1,5 +1,5 @@
 # ProfitPilot
-ProfitPilot is an autonomous AI agent sales professionals
+ProfitPilot is an autonomous AI sales professional agent.
 
 
 
