@@ -3,7 +3,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "profit"
+name = "profit-pilot"
 version = "0.0.1"
 description = "ProfitPilot - AI Agents"
 license = "MIT"
