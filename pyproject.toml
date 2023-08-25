@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "profit-pilot"
-version = "0.0.1"
+version = "0.0.2"
 description = "ProfitPilot - AI Agents"
 license = "MIT"
 authors = ["Kye Gomez <kye@apac.ai>"]
@@ -28,29 +28,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-transformers = "*"
-openai = "*"
-langchain = "0.0.240"
-asyncio = "*"
-simpleaichat = "*"
-nest_asyncio = "*"
-pegasusx = "*"
-einops = "*"
-google-generativeai = "*"
-torch = "*"
-langchain-experimental = "*"
-playwright = "*"
-duckduckgo-search = "*"
-faiss-cpu = "*"
-wget = "*"
-httpx = "*"
-ggl = "*"
-beautifulsoup4 = "*"
-pydantic = "*"
-tenacity = "*"
-celery = "*"
-redis = "*"
-Pillow = "*"
+swarms = "*"
 
 [tool.poetry.dev-dependencies]
 # Add development dependencies here
