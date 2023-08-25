@@ -10,9 +10,9 @@ ProfitPilot is an autonomous AI sales professional agent.
 
 from profit import ProfitPilot
 
-agent = ProfitPilot()
+pilot = ProfitPilot()
 
-agent.run(task)
+pilot.run(task)
 
 ```
 # Todo
