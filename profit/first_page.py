@@ -1,63 +1,59 @@
 import streamlit as st
-from clarifai.auth.helper import ClarifaiAuthHelper
-from clarifai.client import create_stub
-from clarifai.listing.lister import ClarifaiResourceLister
-from clarifai.modules.css import ClarifaiStreamlitCSS
-from google.protobuf import json_format, timestamp_pb2
+from streamlit_chat import message
+import llama
 
-class ClarifaiInputListing:
+class LlamaClarifaiChat:
+    
     def __init__(self):
-        st.set_page_config(layout="wide")
-        ClarifaiStreamlitCSS.insert_default_css(st)
-        
-        self.auth = ClarifaiAuthHelper.from_streamlit(st)
-        self.stub = create_stub(self.auth)
-        self.userDataObject = self.auth.get_user_app_id_proto()
-        self.lister = ClarifaiResourceLister(self.stub, self.auth.user_id, self.auth.app_id, page_size=16)
-        
-        self.mtotal = 0
-        
-        self.display()
+        self.init_session_state()
+        self.title = "Llama2 Clarifai Tutorial"
+        self.render()
 
-    def data_input_form(self):
-        with st.form(key="data-inputs"):
-            self.mtotal = st.number_input(
-                "Select number of inputs to view in a table:", min_value=10, max_value=100)
-            submitted = st.form_submit_button('Submit')
-        return submitted
+    def init_session_state(self):
+        if "messages" not in st.session_state:
+            st.session_state["messages"] = [{"role": "assistant", "content": "Say something to get started!"}]
 
-    def process_inputs(self):
-        if self.mtotal is None or self.mtotal == 0:
-            st.warning("Number of inputs must be provided.")
-            st.stop()
-        else:
-            st.write("Number of inputs in table will be: {}".format(self.mtotal))
+    def clear_chat(self):
+        st.session_state.messages = [{"role": "assistant", "content": "Say something to get started!"}]
 
-        all_inputs = []
-        for inp in self.lister.inputs_generator():
-            all_inputs.append(inp)
+    def chat_form(self):
+        with st.form("chat_input", clear_on_submit=True):
+            a, b = st.columns([4, 1])
 
-            if len(all_inputs) >= self.mtotal:
-                break
+            user_prompt = a.text_input(
+                label="Your message:",
+                placeholder="Type something...",
+                label_visibility="collapsed",
+            )
 
-        data = []
-        for inp in all_inputs:
-            data.append({
-                "id": inp.id,
-                "status": inp.status.description,
-                "created_at": timestamp_pb2.Timestamp.ToDatetime(inp.created_at),
-                "modified_at": timestamp_pb2.Timestamp.ToDatetime(inp.modified_at),
-                "metadata": json_format.MessageToDict(inp.data.metadata),
-            })
+            b.form_submit_button("Send", use_container_width=True)
+        return user_prompt
 
-        st.dataframe(data)
+    def process_user_prompt(self, user_prompt):
+        st.session_state.messages.append({"role": "user", "content": user_prompt})
+        message(user_prompt, is_user=True)
 
-    def display(self):
-        st.title("Simple example to list inputs")
-        if self.data_input_form():
-            self.process_inputs()
+        response = llama.get_response(user_prompt)
+        msg = {"role": "assistant", "content": response}
+        st.session_state.messages.append(msg)
+        message(msg["content"])
+
+    def render_messages(self):
+        for msg in st.session_state.messages:
+            message(msg["content"], is_user=msg["role"] == "user")
+
+    def render_clear_chat_button(self):
+        if len(st.session_state.messages) > 1:
+            st.button('Clear Chat', on_click=self.clear_chat)
+
+    def render(self):
+        st.title(self.title)
+        user_prompt = self.chat_form()
+        self.render_messages()
+        if user_prompt:
+            self.process_user_prompt(user_prompt)
+        self.render_clear_chat_button()
 
 
 if __name__ == "__main__":
-    ClarifaiInputListing()
-
+    LlamaClarifaiChat()
