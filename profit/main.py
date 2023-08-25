@@ -6,14 +6,20 @@ class ProfitPilot:
                  openai_api_key: str = None,
                  ai_name: str = None,
                  ai_role: str = None,
+                 external_tools = None,
                  company_name: str = None,
                  company_values: str = None,
                  conversation_type: str = None,
                  conversation_purpose: str = None,
                  company_business: str = None,
-                 salesperson_name: str = None):
+                 salesperson_name: str = None,
+                 human_in_the_loop=False,):
         super().__init__()
         self.openai_api_key = openai_api_key
+        self.external_tools = external_tools
+        self.human_in_the_loop = human_in_the_loop
+        self.external_tools = external_tools
+
         self.ai_name = ai_name
         self.ai_role = ai_role
         self.company_name = company_name
@@ -72,7 +78,10 @@ class ProfitPilot:
         node = Worker(
             openai_api_key = self.openai_api_key,
             ai_name=self.ai_name,
-            ai_role=self.system_prompt
+            ai_role=self.system_prompt,
+            human_in_the_loop=self.human_in_the_loop,
+            external_tools=self.external_tools
+
         )
         response = node.run(task)
         print(response)
