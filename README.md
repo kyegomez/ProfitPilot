@@ -2,8 +2,15 @@
 ProfitPilot is an autonomous AI sales professional agent.
 
 
+# Installation
+```pip install profit-pilot```
 
+# Usage
+```python
 
+from profit import 
+
+```
 # Todo
 - Worker
 - Prompt,

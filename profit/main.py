@@ -3,16 +3,19 @@ from swarms import Worker
 
 class ProfitPilot:
     def __init__(self,
-                 ai_name,
-                 ai_role,
-                 company_name,
-                 company_values,
-                 conversation_type,
-                 conversation_purpose,
-                 company_business,
-                 salesperson_name,):
+                 openai_api_key: str = None,
+                 ai_name: str = None,
+                 ai_role: str = None,
+                 company_name: str = None,
+                 company_values: str = None,
+                 conversation_type: str = None,
+                 conversation_purpose: str = None,
+                 company_business: str = None,
+                 salesperson_name: str = None):
         super().__init__()
 
+
+        self.openai_api_key = openai_api_key
         self.ai_name = ai_name
         self.ai_role = ai_role
         self.company_name = company_name
@@ -69,7 +72,7 @@ class ProfitPilot:
 
     def run(self, task):
         node = Worker(
-            openai_api_key = os.getenv("OPENAI_API_KEY"),
+            openai_api_key = self.openai_api_key,
             ai_name=self.ai_name,
             ai_role=self.system_prompt
         )
@@ -77,4 +80,4 @@ class ProfitPilot:
         print(response)
 
 
-        
+
