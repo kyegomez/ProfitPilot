@@ -32,6 +32,7 @@ from profit import ProfitPilot
 - Build a seamless user experience
 
 
+-----
 
 ![Clarifai logo](https://www.clarifai.com/hs-fs/hubfs/logo/Clarifai/clarifai-740x150.png?width=240)
 
