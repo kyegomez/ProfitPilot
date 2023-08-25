@@ -13,8 +13,6 @@ class ProfitPilot:
                  company_business: str = None,
                  salesperson_name: str = None):
         super().__init__()
-
-
         self.openai_api_key = openai_api_key
         self.ai_name = ai_name
         self.ai_role = ai_role

@@ -8,7 +8,9 @@ ProfitPilot is an autonomous AI sales professional agent.
 # Usage
 ```python
 
-from profit import 
+from profit import ProfitPilot
+
+
 
 ```
 # Todo
@@ -23,3 +25,8 @@ from profit import
 - Zapier tools
 - Prompts
 - pdf tool
+
+
+# TO win Hackathon
+- Focus on the story, why we're building this
+- Build a seamless user experience
