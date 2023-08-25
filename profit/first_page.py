@@ -6,7 +6,7 @@ class LlamaClarifaiChat:
     
     def __init__(self):
         self.init_session_state()
-        self.title = "Llama2 Clarifai Tutorial"
+        self.title = "Profit Pilot"
         self.render()
 
     def init_session_state(self):
