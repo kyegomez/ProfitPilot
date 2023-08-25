@@ -1,3 +1,38 @@
+# ProfitPilot
+ProfitPilot is an autonomous AI sales professional agent.
+
+
+# Installation
+```pip install profit-pilot```
+
+# Usage
+```python
+
+from profit import ProfitPilot
+
+
+
+```
+# Todo
+- Worker
+- Prompt,
+- Tools, Zapier tool, email answering, summarizng, email understanding, email response
+- Lead scraping, create tool that scrapes that scrapes on a website domain
+
+
+## Requirements
+- Email function tools
+- Zapier tools
+- Prompts
+- pdf tool
+
+
+# TO win Hackathon
+- Focus on the story, why we're building this
+- Build a seamless user experience
+
+
+
 ![Clarifai logo](https://www.clarifai.com/hs-fs/hubfs/logo/Clarifai/clarifai-740x150.png?width=240)
 
 # Clarifai App Module Template

@@ -29,6 +29,8 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.6"
 swarms = "*"
+clarifai = "*"
+streamlit = "*"
 
 [tool.poetry.dev-dependencies]
 # Add development dependencies here
