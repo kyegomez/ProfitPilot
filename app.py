@@ -1,5 +1,5 @@
 import streamlit as st
-from clarifai_utils.modules.css import ClarifaiStreamlitCSS
+# from clarifai_utils.modules.css import ClarifaiStreamlitCSS
 from LlamaClarifaiChat import LlamaClarifaiChat  # Assuming LlamaClarifaiChat is in the same directory
 
 st.set_page_config(layout="wide")
