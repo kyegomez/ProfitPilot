@@ -4,3 +4,7 @@ ngrok.yaml
 venv
 docs/**/*
 %*%
+__pycache__
+list_of_things.txt
+%00.Coding%HackathonTeamProjectProposal
+.pytest_cache

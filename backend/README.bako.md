@@ -1,6 +1,6 @@
 # Backend for the Agora HackaThon Project
 
-## TODO:
+## TODO
 
 - write selector COMPLETE
 - write embeddings.py COMPLETE
@@ -12,6 +12,7 @@
 - write tests for drafter
 - write tests for scraper
 - write out the readme
+- refactor api to fastapi
 - finish the vectorstore implimentnation
 - dockerize the vectorstore
 - refactor the email drafter
