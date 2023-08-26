@@ -1,10 +1,10 @@
-from swarms import Worker
+from profit.agent import Agent
 
 
 ai_name="Kye gomez"
 ai_role = "SalesProfessional Customer Success agent"
 company_name = "APAC AI"
-node = Worker(
+node = Agent(
     openai_api_key="",
     ai_name="Kye Gomez",
     ai_role=f"""
@@ -90,9 +90,8 @@ node = Worker(
     """
 )
 
-
-##
-task = """ """
-
+task = """
+Send emails to all the leads int this csv file
+"""
 response = node.run(task)
 print(response)
