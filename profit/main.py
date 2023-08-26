@@ -1,5 +1,5 @@
 import os
-from swarms import Worker
+from profit.agent import Agent
 
 class ProfitPilot:
     def __init__(self,
@@ -75,7 +75,7 @@ class ProfitPilot:
         """
 
     def run(self, task):
-        node = Worker(
+        node = Agent(
             openai_api_key = self.openai_api_key,
             ai_name=self.ai_name,
             ai_role=self.system_prompt,
