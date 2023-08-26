@@ -91,7 +91,7 @@ class Agent:
                 ai_name=self.ai_name,
                 ai_role=self.ai_role,
                 tools=self.tools,
-                llm=self.llm,
+                llm=self.llm, #TODO: Look into call format
                 memory=self.vectorstore.as_retriever(search_kwargs={"k": 8}),
                 human_in_the_loop=self.human_in_the_loop
             )

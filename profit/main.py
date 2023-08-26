@@ -81,7 +81,6 @@ class ProfitPilot:
             ai_role=self.system_prompt,
             human_in_the_loop=self.human_in_the_loop,
             external_tools=self.external_tools
-
         )
         response = node.run(task)
         print(response)
