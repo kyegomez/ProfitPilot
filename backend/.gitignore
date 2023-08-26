@@ -1,6 +1,6 @@
 .venv
 .env
-*.yaml
+ngrok.yaml
 venv
-docs/*.json
+docs/**/*
 %*%

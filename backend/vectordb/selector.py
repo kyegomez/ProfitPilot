@@ -10,7 +10,6 @@ class BaseSelector:
         self.embedding: Any
         self.option_map: Dict[str, Any] = {}
         self.option_index: Dict[int, str] = {}
-        self.selected_option: Any = None
 
     def initialize_maps(self, options: List[Any]):
         """Initialize option maps."""

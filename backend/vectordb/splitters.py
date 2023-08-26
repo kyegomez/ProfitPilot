@@ -26,7 +26,7 @@ class SplitterOptions(Enum):
     token_text_splitter = TokenTextSplitter
 
 
-class Splitters(BaseSelector):
+class SplitterSelector(BaseSelector):
     def __init__(
         self, default_splitter=SplitterOptions.recursive_character_text_splitter
     ):

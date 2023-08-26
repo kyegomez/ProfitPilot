@@ -11,21 +11,21 @@ logger = loguru.logger
 
 
 class RetrieverOptions(Enum):
-    self_query_retriever = SelfQueryRetriever
-    ensemble_retriever = EnsembleRetriever
-    contextual_compression_retriever = ContextualCompressionRetriever
+    SELF_QUERY_RETRIEVER = SelfQueryRetriever
+    ENSEMBLE_RETRIVER = EnsembleRetriever
+    CONTEXTUAL_COMPRESSION_RETRIVER = ContextualCompressionRetriever
 
 
 class RetrieverSelector(BaseSelector):
-    def __init__(self, default_retriever=RetrieverOptions.self_query_retriever):
+    def __init__(self, default_retriever=RetrieverOptions.SELF_QUERY_RETRIEVER):
         super().__init__()
         logger.info("Initializing RetrieverSelector")
         self.self_query_retriever: RetrieverOptions = (
-            RetrieverOptions.self_query_retriever
+            RetrieverOptions.SELF_QUERY_RETRIEVER
         )
-        self.ensemble_retriever: RetrieverOptions = RetrieverOptions.ensemble_retriever
+        self.ensemble_retriever: RetrieverOptions = RetrieverOptions.ENSEMBLE_RETRIVER
         self.contextual_compression_retriever: RetrieverOptions = (
-            RetrieverOptions.contextual_compression_retriever
+            RetrieverOptions.CONTEXTUAL_COMPRESSION_RETRIVER
         )
         self.retriever = default_retriever
         self.initialize_maps(list(RetrieverOptions))

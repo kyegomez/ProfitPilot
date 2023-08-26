@@ -19,14 +19,9 @@ class EmbeddingOptions(Enum):
     SENTENCE_TRANSFORMERS_EMBEDDING: SentenceTransformerEmbeddings
 
 
-logger.info(EmbeddingOptions.OPENAI_EMBEDDINGS)
-
-
 class EmbeddingSelector(BaseSelector):
-    def __init__(self, default_embedding=None):
+    def __init__(self, default_embedding=EmbeddingOptions.OPENAI_EMBEDDINGS):
         super().__init__()
-        if not default_embedding:
-            default_embedding = EmbeddingOptions.OPENAI_EMBEDDINGS
         self.embedding = default_embedding
         logger.info("Initializing EmbeddingSelector")
         self.openai_embeddings = EmbeddingOptions.OPENAI_EMBEDDINGS

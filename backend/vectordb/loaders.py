@@ -12,24 +12,24 @@ from vectordb.selector import BaseSelector
 
 
 class LoaderOptions(Enum):
-    pypdf_loader: PyPDFLoader
-    unstructured_markdown_loader: UnstructuredMarkdownLoader
-    text_loader: TextLoader
-    python_loader: PythonLoader
-    directory_loader: DirectoryLoader
-    playwright_url_loader: PlaywrightURLLoader
+    PYPDF_LOADER: PyPDFLoader
+    UNSTRUCTURED_MARKDOWN_LOADER: UnstructuredMarkdownLoader
+    TEXT_LOADER: TextLoader
+    PYTHON_LOADER: PythonLoader
+    DIRECTORY_LOADER: DirectoryLoader
+    PLAYWRIGHT_LOADER: PlaywrightURLLoader
 
 
 class LoaderSelector(BaseSelector):
-    def __init__(self, default_loader=LoaderOptions.pypdf_loader):
+    def __init__(self, default_loader=LoaderOptions.PYPDF_LOADER):
         super().__init__()
         logger.info("Initializing LoaderSelector")
-        self.py_pdf_loader = LoaderOptions.pypdf_loader
-        self.unstructured_markdown_loader = LoaderOptions.unstructured_markdown_loader
-        self.text_loader = LoaderOptions.text_loader
-        self.python_loader = LoaderOptions.python_loader
-        self.directory_loader = LoaderOptions.directory_loader
-        self.playwright_url_loader = LoaderOptions.playwright_url_loader
+        self.py_pdf_loader = LoaderOptions.PYPDF_LOADER
+        self.unstructured_markdown_loader = LoaderOptions.UNSTRUCTURED_MARKDOWN_LOADER
+        self.text_loader = LoaderOptions.TEXT_LOADER
+        self.python_loader = LoaderOptions.PYTHON_LOADER
+        self.directory_loader = LoaderOptions.DIRECTORY_LOADER
+        self.playwright_url_loader = LoaderOptions.PLAYWRIGHT_LOADER
         self.loader = default_loader
         self.initialize_maps(list(LoaderOptions))
 
