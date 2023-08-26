@@ -31,6 +31,8 @@ python = "^3.6"
 swarms = "*"
 clarifai = "*"
 streamlit = "*"
+langchain-experimental = "*"
+langchain = "*"
 
 [tool.poetry.dev-dependencies]
 # Add development dependencies here
