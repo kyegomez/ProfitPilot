@@ -1,6 +1,6 @@
 import streamlit as st
 # from clarifai_utils.modules.css import ClarifaiStreamlitCSS
-from profit.LlamaClarifaiChat import LlamaClarifaiChat  
+from profit.first_page import LlamaClarifaiChat  
 st.set_page_config(layout="wide")
 ClarifaiStreamlitCSS.insert_default_css(st)
 
