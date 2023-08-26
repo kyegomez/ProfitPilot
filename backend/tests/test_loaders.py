@@ -1,4 +1,4 @@
-from vectordb.embeddings import EmbeddingSelector
+from vectordb.loaders import LoaderSelector
 import loguru
 
 import unittest
@@ -6,35 +6,35 @@ from unittest.mock import Mock
 
 logger = loguru.logger
 
-embedding_selector = EmbeddingSelector
+loader_selector = LoaderSelector
 
 
-class MockEmbeddingOptions:
-    option1 = Mock(return_value="Option1")
-    option2 = Mock(return_value="Option2")
-    option3 = Mock(return_value="Option3")
+class MockLoadersOptions:
+    OPTION1 = Mock(return_value="Option1")
+    OPTION2 = Mock(return_value="Option2")
+    OPTION3 = Mock(return_value="Option3")
 
 
-class MockEmbeddingSelector(embedding_selector):
-    def __init__(self, default_embedding=MockEmbeddingOptions.option1):
+class MockLoadersSelector(loader_selector):
+    def __init__(self, default_loader=MockLoadersOptions.OPTION1):
         super().__init__()
-        logger.info("Initializing MockEmbeddingSelector")
+        logger.info("Initializing MockLoaderselector")
         self.option_map = {
             "Option1": "Option1",
             "Option2": "Option2",
         }
         self.option_index = {0: "Option1", 1: "Option2"}
         self.selected_option = None
-        self.embedding = default_embedding
+        self.loader = default_loader
 
 
-class TestEmbeddingSelector(unittest.TestCase):
+class TestLoadersSelector(unittest.TestCase):
     def setUp(self):
-        logger.info("Setting up TestEmbeddingSelector")
-        self.selector = MockEmbeddingSelector()
+        logger.info("Setting up TestLoadersSelector")
+        self.selector = MockLoadersSelector()
         self.options = [
-            MockEmbeddingOptions.option1,
-            MockEmbeddingOptions.option2,
+            MockLoadersOptions.OPTION1,
+            MockLoadersOptions.OPTION2,
         ]
         self.selector.initialize_maps(self.options)
 

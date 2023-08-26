@@ -1,4 +1,4 @@
-from vectordb.embeddings import EmbeddingSelector
+from vectordb.splitters import SplittersSelector
 import loguru
 
 import unittest
@@ -6,35 +6,33 @@ from unittest.mock import Mock
 
 logger = loguru.logger
 
-embedding_selector = EmbeddingSelector
+
+class MockSplittersOptions:
+    OPTION1 = Mock(return_value="Option1")
+    OPTION2 = Mock(return_value="Option2")
+    OPTION3 = Mock(return_value="Option3")
 
 
-class MockEmbeddingOptions:
-    option1 = Mock(return_value="Option1")
-    option2 = Mock(return_value="Option2")
-    option3 = Mock(return_value="Option3")
-
-
-class MockEmbeddingSelector(embedding_selector):
-    def __init__(self, default_embedding=MockEmbeddingOptions.option1):
+class MockSplittersSelector(SplittersSelector):
+    def __init__(self, default_splitters=MockSplittersOptions.OPTION1):
         super().__init__()
-        logger.info("Initializing MockEmbeddingSelector")
+        logger.info("Initializing MockSplittersSelector")
         self.option_map = {
             "Option1": "Option1",
             "Option2": "Option2",
         }
         self.option_index = {0: "Option1", 1: "Option2"}
         self.selected_option = None
-        self.embedding = default_embedding
+        self.splitters = default_splitters
 
 
-class TestEmbeddingSelector(unittest.TestCase):
+class TestSplittersSelector(unittest.TestCase):
     def setUp(self):
-        logger.info("Setting up TestEmbeddingSelector")
-        self.selector = MockEmbeddingSelector()
+        logger.info("Setting up TestSplittersSelector")
+        self.selector = MockSplittersSelector()
         self.options = [
-            MockEmbeddingOptions.option1,
-            MockEmbeddingOptions.option2,
+            MockSplittersOptions.OPTION1,
+            MockSplittersOptions.OPTION2,
         ]
         self.selector.initialize_maps(self.options)
 

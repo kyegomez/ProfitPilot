@@ -1,0 +1,8 @@
+csv processor 
+reads and writer
+query websites
+human inputs
+planning
+(pdf)
+(emails)
+(zapier - emails)
