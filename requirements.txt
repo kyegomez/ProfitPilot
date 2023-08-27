@@ -15,3 +15,4 @@ unstructured
 python-dotenv
 loguru
 transformers
+faiss-gpu==1.7.2
