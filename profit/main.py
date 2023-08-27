@@ -1,5 +1,4 @@
 from profit.agent import Agent
-from profit.llamachat import LlamaClarifaiChat 
 
 class ProfitPilot:
     def __init__(self,
@@ -27,8 +26,6 @@ class ProfitPilot:
 
         self.company_business = company_business
         self.salesperson_name = salesperson_name
-
-        self.chat_interface = LlamaClarifaiChat()
 
         self.system_prompt = f"""
         You're the best cold emailer of APAC AI, you follow the principles of these books: SPIN Selling, To sell is Human, and FANATICAL Prospecting
