@@ -1,5 +1,3 @@
-import os
-
 from profit.agent import Agent
 from profit.llamachat import LlamaClarifaiChat 
 

@@ -38,6 +38,7 @@ class Agent:
             WriteFileTool(root_dir=ROOT_DIR),
             ReadFileTool(root_dir=ROOT_DIR),
             process_csv,
+            
             query_website_tool,
             HumanInputRun(),
             zapier_tools

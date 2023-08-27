@@ -139,11 +139,9 @@ query_website_tool = WebpageQATool(qa_chain=load_qa_with_sources_chain(llm))
 # !pip install duckduckgo_search
 # web_search = DuckDuckGoSearchRun()
 
-
 # get from https://nla.zapier.com/docs/authentication/ after logging in):
 os.environ["ZAPIER_NLA_API_KEY"] = os.environ.get("ZAPIER_NLA_API_KEY", "")
 
 zapier = ZapierNLAWrapper()
 zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
-
 zapier_tools = zapier_toolkit.get_tools()
