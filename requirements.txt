@@ -5,11 +5,9 @@ pytest
 pydantic
 langchain
 openai
-chroma
 playwright
 pypdf2
 tiktoken
-sentence_transformers
 selenium
 selenium-wire
 nltk
