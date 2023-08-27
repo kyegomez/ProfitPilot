@@ -36,13 +36,7 @@ def run_marketing_report(company_path):
 
     print(f"You now have {len(docs)} documents")
 
-    map_prompt = """Below is a section of a website about {prospect}
-
-    Write a concise summary about {prospect}. If the information is not about {prospect}, exclude it from your summary. The purpose of this report is sales prospecting for internal use.
-
-    {text}
-
-    CONCISE SUMMARY:"""
+    map_prompt = 
     map_prompt_template = PromptTemplate(
         template=map_prompt, input_variables=["text", "prospect"]
     )

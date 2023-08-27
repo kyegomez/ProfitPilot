@@ -7,11 +7,11 @@ logger = loguru.logger
 
 
 class BaseSelector:
-    def __init__(self):
+    def __init__(self, name=""):
         logger.info("Initializing BaseSelector")
-        self.embedding: Any = None
         self.option_map: Dict[str, Dict[str, Any]] = {}
         self.option_index: Dict[int, str] = {}
+        self.option_name = self.select(name)
 
     def initialize_maps(self, options: EnumMeta):
         logger.info("Initializing BaseSelector")
@@ -21,15 +21,14 @@ class BaseSelector:
         }
 
         for i, (option_name, option_value) in enumerate(init_options.items()):
-            logger.info(f"Name: {option_name}, Value: {option_value}")
+            logger.info(f"Mapping Name: {option_name}, Value: {option_value}")
             self.option_map[option_name] = option_value
             self.option_index[i] = option_name
 
     def select(self, name: str):
         logger.info(f"Selecting {name}")
-        self.embedding = self.option_map.get(name, None)
-        logger.debug(f"Selected {self.embedding}")
-        return self.embedding
+        self.option = self.option_map.get(name, None)
+        return self.option
 
     def add(self, option: Dict[str, Any]):
         logger.info(f"Adding {option}")

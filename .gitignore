@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.streamlit/
+
+/docs/creds/*.json
+/docs/creds/*.txt
+docs/*.txt
+docs/*pdf
+webscraper/*.html
+webscraper/*.txt
+webscraper/*.json

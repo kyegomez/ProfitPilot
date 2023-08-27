@@ -17,8 +17,8 @@ class TestEmbeddingSelector(unittest.TestCase):
         self.selector = EmbeddingSelector()
 
     def test_initialization(self):
-        self.assertIsNotNone(self.selector.embedding)
-        self.assertEqual(self.selector.embedding, EmbeddingOptions.OPENAI_EMBEDDINGS)
+        self.assertIsNotNone(self.selector.option)
+        self.assertEqual(self.selector.option, EmbeddingOptions.OPENAI_EMBEDDINGS)
 
     def test_lazy_initialization_openai(self):
         self.selector.get_openai_embeddings()
@@ -34,9 +34,7 @@ class TestEmbeddingSelector(unittest.TestCase):
 
     def test_select(self):
         self.selector.select("OPENAI_EMBEDDINGS")
-        self.assertEqual(
-            self.selector.embedding, EmbeddingOptions.OPENAI_EMBEDDINGS.value
-        )
+        self.assertEqual(self.selector.option, EmbeddingOptions.OPENAI_EMBEDDINGS.value)
 
 
 if __name__ == "__main__":

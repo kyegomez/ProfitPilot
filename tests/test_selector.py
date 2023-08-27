@@ -31,7 +31,7 @@ class TestBaseSelector(unittest.TestCase):
     def test_select(self):
         selected = self.selector.select("Option1")
         self.assertEqual(selected, {"data": "some_data1"})
-        self.assertEqual(self.selector.embedding, {"data": "some_data1"})
+        self.assertEqual(self.selector.option, {"data": "some_data1"})
 
     def test_add(self):
         new_option = {"new_option": {"new_data": "some_new_data"}}

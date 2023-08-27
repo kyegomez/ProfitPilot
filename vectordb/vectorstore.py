@@ -41,29 +41,28 @@ class VectorStoreSelector(BaseSelector):
         default_loader=LoaderOptions.PYPDF_LOADER,
         default_search_type=SearchOptions.SIMILARITY_SEARCH,
         default_kwarg_options={"k": 8},
-        persistent_directory="docs/vectorstore",
-        name="chroma_vectorstore",
+        persistent_directory="docs/vector_store",
     ):
         super().__init__()
-        self.vector_store = default_vector_store.value
-        self.chorma_vector_store = VectorStoreOptions.CHROMA
+        logger.info("Initializing Vectorstore")
         self.embeddings_selector = EmbeddingSelector()
-        self.embeddings = self.get_embeddings(default_embeddings)
+        self.embeddings = self.embeddings_selector.select(str(default_embeddings))
         self.retriever_selector = RetrieverSelector()
-        self.retriever = self.get_retriever(default_retriever)
+        self.retriever = self.retriever_selector.select(str(default_retriever))
         self.splitter_selector = SplitterSelector()
-        self.splitter = self.get_splitter(default_splitter)
+        self.splitter = self.splitter_selector.select(str(default_splitter))
         self.loader_selector = LoaderSelector()
-        self.loader = self.get_loader(default_loader)
+        self.loader = self.loader_selector.select(str(default_loader))
         self.persistent_directory = persistent_directory
-        self.name = name
-        self.vectorstore_maps = {}
-        self.vectorstore_index = {}
+        self.vector_store_map = {}
+        self.vector_store_index = {}
         self.initialize_maps(VectorStoreOptions)
-        self.vectorstore = self.get_vectorstore(default_vector_store)
-        self.vectorstore = self.vectorstore(
+        logger.debug(f"Selected Initialized Maps:{self.vector_store_map}")
+        self.chorma_vector_store = VectorStoreOptions.CHROMA
+        self.vector_store = self.select(str(default_vector_store))
+        self.vectordb = self.get_vector_store.value(
             embedding_function=self.embeddings,
-            collection_name=self.name,
+            collection_name=default_vector_store.value,
             persistent_directory=self.persistent_directory,
         )
         self.base_retriever = self.get_base_retriever(
@@ -73,57 +72,49 @@ class VectorStoreSelector(BaseSelector):
         self.compression_retriever = self.get_compression_retriever()
         self.document_compressor = self.get_document_compressor()
 
-    def get_vectorstore(self, name):
-        logger.info("Getting Vectorstore", name)
-        self.vectorstore = self.select(name)
-        return self.vectorstore
+    def get_vector_store(self, name):
+        logger.info("Getting Vector_store", name)
+        self.vector_store = self.select(name)
+        logger.debug("Selected Vector_store:", self.vector_store)
+        return self.vector_store
 
-    def get_embeddings(self, name):
-        logger.info("Getting Embeddings", name)
-        return self.embeddings_selector.select(name)
-
-    def get_splitter(self, name):
-        logger.info("Getting Splitter")
-        return self.splitter_selector.select(name)
-
-    def get_loader(self, name):
-        logger.info("Getting Loader")
-        return self.loader_selector.select(name)
-
-    def get_retriever(self, name):
-        logger.info("Getting Retriever")
-        return self.retriever_selector.select(name)
+    def get_chroma(self, name):
+        logger.info("Getting Chroma", name)
+        return self.select("CHROMA")
 
     def add_document(self, documents: List[Document]):
-        self.vector_store.add_documents(self=self.vectorstore, documents=documents)
-        return
+        logger.info("Adding document")
+        return self.vectordb.add_documents(self=self.vectordb, documents=documents)
 
     def remove_document(self, documents: str):
-        self.vectorstore.delete(self=self.vectorstore, kwargs={"documents": documents})
+        logger.info("Removing document")
+        self.vectordb.delete(self=self.vectordb, kwargs={"documents": documents})
 
     def similarity_search(self, query):
-        self.vectorstore.similarity_search(
-            self=self.vectorstore, query=query, kwargs={"k": 5}
+        logger.info("similarity_search")
+        return self.vectordb.similarity_search(
+            self=self.vectordb, query=query, kwargs={"k": 5}
         )
 
     def similarity_search_by_vector(self, query):
-        self.vectorstore.similarity_search(query=query, kwargs={"k": 5})
+        logger.info("similarity_search_by_vector")
+        return self.vectordb.similarity_search(query=query, kwargs={"k": 5})
 
     def max_marginal_relevance_search(self, query):
-        self.vectorstore.max_marginal_relevance_search(
+        logger.info("max_marginal_relevance_search")
+        return self.vectordb.max_marginal_relevance_search(
             query=query, kwargs={"k": 3, "fetch_k": 10}
         )
 
     def get_collection(self, collection_id):
-        self.vectorstore.get(ids=collection_id)
+        logger.info("Getting collection")
+        return self.vectordb.get(ids=collection_id)
 
     def get_base_retriever(self, search_type, kwarg_options):
         logger.info("Getting base retriever")
         if kwarg_options is None:
             kwarg_options = {"k": 8}
-        return self.vectorstore.as_retriever(
-            search_type=search_type, kwargs=kwarg_options
-        )
+        return self.vectordb.as_retriever(search_type=search_type, kwargs=kwarg_options)
 
     def get_document_compressor(self):
         logger.info("Getting document compressor")
@@ -149,4 +140,4 @@ class VectorStoreSelector(BaseSelector):
         logger.info("Running compression search")
         if self.retriever != ContextualCompressionRetriever:
             self.compression_retriever = self.get_compression_retriever()
-        return self.retriever.aget_relevant_documents(query=query)
+        return self.retriever.get_relevant_documents(query=query)

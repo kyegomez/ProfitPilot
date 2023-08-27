@@ -25,7 +25,7 @@ EmbeddingOptions.OPENAI_EMBEDDINGS.value.openai_api_key = api_key
 class EmbeddingSelector(BaseSelector):
     def __init__(self, default_embedding=EmbeddingOptions.OPENAI_EMBEDDINGS):
         super().__init__()
-        self.embedding = default_embedding
+        self.embedding = self.select(str(default_embedding))
         logger.info("Initializing EmbeddingSelector")
         self.openai_embeddings = EmbeddingOptions.OPENAI_EMBEDDINGS
         self.sentence_transformer_embeddings = (
@@ -35,15 +35,16 @@ class EmbeddingSelector(BaseSelector):
 
     def get_openai_embeddings(self):
         logger.info("Getting OpenAI Embeddings")
-        if not isinstance(self.openai_embeddings, OpenAIEmbeddings):
-            self.openai_embeddings = OpenAIEmbeddings(
+        embedding = self.select("OPENAI_EMBEDDINGS")
+        if not isinstance(embedding, OpenAIEmbeddings):
+            self.openai_embeddings = self.openai_embeddings.value(
                 openai_api_key=os.environ.get("OPENAI_API_KEY"),
                 client=openai,
                 model="text-embedding-ada-002",
                 show_progress_bar=True,
                 request_timeout=60,
             )
-        return self.select("OPENAI_EMBEDDINGS")
+        return
 
     def get_sentence_transformer_embeddings(self):
         logger.info("Getting Sentence Transformer Embeddings")

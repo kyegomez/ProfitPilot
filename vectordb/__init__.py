@@ -1,3 +1,3 @@
-from vectordb import embeddings, old_vectorstore, retrivers, splitters, loaders
+from vectordb import embeddings, vectorstore, retrivers, splitters, loaders
 
-__all__ = ["embeddings", "retrivers", "splitters", "loaders", "old_vectorstore"]
+__all__ = ["embeddings", "retrivers", "splitters", "loaders", "vectorstore"]
