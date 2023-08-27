@@ -11,8 +11,6 @@ from profit.tools import (
     process_csv,
     query_website_tool,
 )
-# from profit.llamachat import LlamaClarifaiChat
-# import profit.llamachat as llama
 from profit.llama2 import LLama2
 
 ROOT_DIR = "./data/"
