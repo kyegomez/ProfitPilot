@@ -4,8 +4,9 @@ import os
 # Tools
 from contextlib import contextmanager
 from typing import Optional
-from webscraper import scraper, parse_data
-from email_drafter import email_generator
+
+from profit.webscraper import scraper, parse_data
+from profit.email_drafter import email_generator
 
 import pandas as pd
 from langchain.agents import tool

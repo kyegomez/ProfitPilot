@@ -5,14 +5,16 @@ from langchain.tools.human.tool import HumanInputRun
 from langchain.vectorstores import FAISS
 from langchain_experimental.autonomous_agents import AutoGPT
 
+from profit.llama2 import LLama2
 from profit.tools import (
     ReadFileTool,
     WriteFileTool,
+    draft_email,
     process_csv,
     query_website_tool,
-    zapier_tools
+    scrape_data,
+    zapier_tools,
 )
-from profit.llama2 import LLama2
 
 ROOT_DIR = "./data/"
 
@@ -40,7 +42,9 @@ class Agent:
 
             query_website_tool,
             HumanInputRun(),
-            zapier_tools
+            zapier_tools,
+            draft_email,
+            scrape_data
         ]
         if external_tools is not None:
             self.tools.extend(external_tools)
