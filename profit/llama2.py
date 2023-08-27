@@ -4,7 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 class LLama2:
     def __init__(self, 
-                 model_id = "TheBloke/Llama-2-7B-Chat-GGML", 
+                 model_id = "WizardLM/WizardCoder-Python-34B-V1.0", 
                  device: str = None, 
                  max_length: int = 2000, 
                  quantize: bool = False, 
@@ -55,3 +55,6 @@ class LLama2:
             self.logger.error(f"Failed to generate the text: {e}")
             raise
 
+
+# llama = LLama2(quantized=True)
+# llama.generate("What is your name")
