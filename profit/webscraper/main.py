@@ -3,11 +3,13 @@ from seleniumwire.utils import decode as decodesw
 import json
 import loguru
 import argparse
-from parse_html import extract_text_from_html
 
 logger = loguru.logger
 
 MODE = "scout"
+RESULTS_PATH = "docs/collected_data/results.txt"
+HTML_PATH = "docs/collected_data/html_content.html"
+INPUT_URL_LIST = "docs/input.txt"
 
 
 def get_driver():
@@ -25,11 +27,19 @@ def set_mode(mode):
 def scout_request_urls(driver, target_url):
     driver.get(target_url)
     html_content = driver.page_source
+    with open(HTML_PATH, "w", encoding="utf-8") as file:
+        file.write(html_content)
     if MODE == "collect":
         responses = grab_responses(driver)
+        with open(RESULTS_PATH, "w", encoding="utf-8") as file:
+            file.write(json.dumps(responses))
         return responses, html_content
     else:
         urls = [{"url": request.url} for request in driver.requests]
+        logger.info("Request URLs: %s", urls)
+        with open(RESULTS_PATH, "w", encoding="utf-8") as file:
+            file.write(json.dumps(urls))
+
         return urls, html_content
 
 
@@ -45,11 +55,12 @@ def grab_responses(driver):
 
         content_type = request.response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
-            continue  # Skip non-JSON content types
+            continue
         data = decodesw(
             request.response.body,
             request.response.headers.get("Content-Encoding", "identity"),
         )
+        logger.info(f"Response data: {data}")
         try:
             decoded_data = data.decode("utf-8")
             responses.append(json.loads(decoded_data))
@@ -62,27 +73,24 @@ def grab_responses(driver):
 
 def collect_data(driver, target_url):
     urls, html_content = scout_request_urls(driver, target_url)
-    logger.info(f"Scout request urls: {urls}")
-    with open("urls.json", "w", encoding="utf-8") as f:
-        json.dump(urls, f, ensure_ascii=False, indent=4)
-    with open("html_content.html", "w", encoding="utf-8") as f:
-        f.write(html_content)
-    extract_text_from_html(html_content)
     return {"urls": urls, "html_content": html_content}
 
 
-def main():
-    target_url = input("URL: ")
-    if not target_url.startswith("http"):
-        target_url = f"http://{target_url}"
-    driver = get_driver()
-    try:
-        result = collect_data(driver, target_url)
-        logger.info(f"Result: {result}")
-        with open("result.json", "a", encoding="utf-8") as f:
-            json.dump(result, f, ensure_ascii=False, indent=4)
-    finally:
-        driver.close()
+def main(url=None):
+    if url is None:
+        url = INPUT_URL_LIST
+    target_url = ""
+    with open(url, "r", encoding="utf-8") as file:
+        target_url = file.read()
+        if not target_url.startswith("http"):
+            target_url = f"http://{target_url}"
+        driver = get_driver()
+        try:
+            result = collect_data(driver, target_url)
+            logger.info(f"Result: {result}")
+            return result
+        finally:
+            driver.close()
 
 
 if __name__ == "__main__":

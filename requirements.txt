@@ -1,5 +1,13 @@
 clarifai-grpc
 streamlit
 streamlit-chat
-langchain-experimental
+pydantic
 langchain
+openai
+transformers
+faiss-gpu==1.7.2
+langchain-experimental
+clarifai
+transformers
+torch
+pandas

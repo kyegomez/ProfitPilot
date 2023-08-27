@@ -33,6 +33,7 @@ clarifai = "*"
 streamlit = "*"
 langchain-experimental = "*"
 langchain = "*"
+transformers = "*"
 
 [tool.poetry.dev-dependencies]
 # Add development dependencies here

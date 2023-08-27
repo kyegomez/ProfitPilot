@@ -23,7 +23,12 @@ from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
 from pydantic import Field
 
-llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
+from profit.llama2 import LLama2
+
+llm = LLama2()
+
+from langchain.agents.agent_toolkits import ZapierToolkit
+from langchain.utilities.zapier import ZapierNLAWrapper
 
 
 @contextmanager
@@ -134,9 +139,9 @@ query_website_tool = WebpageQATool(qa_chain=load_qa_with_sources_chain(llm))
 # !pip install duckduckgo_search
 # web_search = DuckDuckGoSearchRun()
 
+# get from https://nla.zapier.com/docs/authentication/ after logging in):
+os.environ["ZAPIER_NLA_API_KEY"] = os.environ.get("ZAPIER_NLA_API_KEY", "")
 
-
-# from swarms.agents.tools.code_intepretor import CodeInterpreter
-
-# # @tool
-# code_intepret = CodeInterpreter()
+zapier = ZapierNLAWrapper()
+zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
+zapier_tools = zapier_toolkit.get_tools()

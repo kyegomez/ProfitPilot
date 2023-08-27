@@ -1,7 +1,6 @@
 from profit.main import ProfitPilot
 
 # Define variables for ProfitPilot
-OPENAI_API_KEY = "YOUR_OPENAI_API_KEY"
 AI_NAME = "Athena"
 AI_ROLE = "Sales Representative"
 EXTERNAL_TOOLS = None
@@ -16,7 +15,6 @@ PROSPECT_NAME = "Jane Smith"  # Add the prospect's name here
 
 # Create an instance of the ProfitPilot class
 pilot = ProfitPilot(
-    openai_api_key=OPENAI_API_KEY,
     ai_name=AI_NAME,
     ai_role=AI_ROLE,
     external_tools=EXTERNAL_TOOLS,
