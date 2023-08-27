@@ -3,7 +3,7 @@ from profit.agent import Agent
 
 class ProfitPilot:
     def __init__(self,
-                 openai_api_key: str = None,
+                 #openai_api_key: str = None,
                  ai_name: str = None,
                  ai_role: str = None,
                  external_tools = None,
@@ -76,7 +76,7 @@ class ProfitPilot:
 
     def run(self, task):
         node = Agent(
-            openai_api_key = self.openai_api_key,
+            #openai_api_key = self.openai_api_key,
             ai_name=self.ai_name,
             ai_role=self.system_prompt,
             human_in_the_loop=self.human_in_the_loop,
