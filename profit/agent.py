@@ -10,6 +10,7 @@ from profit.tools import (
     WriteFileTool,
     process_csv,
     query_website_tool,
+    zapier_tools
 )
 from profit.llama2 import LLama2
 
@@ -40,6 +41,7 @@ class Agent:
             process_csv,
             query_website_tool,
             HumanInputRun(),
+            zapier_tools
         ]
         if external_tools is not None:
             self.tools.extend(external_tools)

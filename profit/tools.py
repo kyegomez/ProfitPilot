@@ -22,9 +22,13 @@ from langchain.tools import BaseTool, DuckDuckGoSearchRun
 from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
 from pydantic import Field
-from profit.llamachat import LlamaClarifaiChat
 
-llm = LlamaClarifaiChat()
+# from profit.llamachat import LlamaClarifaiChat
+
+# llm = LlamaClarifaiChat()
+
+from langchain.agents.agent_toolkits import ZapierToolkit
+from langchain.utilities.zapier import ZapierNLAWrapper
 
 
 @contextmanager
@@ -136,8 +140,10 @@ query_website_tool = WebpageQATool(qa_chain=load_qa_with_sources_chain(llm))
 # web_search = DuckDuckGoSearchRun()
 
 
+# get from https://nla.zapier.com/docs/authentication/ after logging in):
+os.environ["ZAPIER_NLA_API_KEY"] = os.environ.get("ZAPIER_NLA_API_KEY", "")
 
-# from swarms.agents.tools.code_intepretor import CodeInterpreter
+zapier = ZapierNLAWrapper()
+zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
 
-# # @tool
-# code_intepret = CodeInterpreter()
+zapier_tools = zapier_toolkit.get_tools()
