@@ -18,7 +18,6 @@ ROOT_DIR = "./data/"
 
 class Agent:
     def __init__(self, 
-                 model_name="gpt-4", 
                  ai_name="Autobot Swarm Worker",
                  ai_role="Worker in a swarm",
                  external_tools = None,
@@ -38,7 +37,7 @@ class Agent:
             WriteFileTool(root_dir=ROOT_DIR),
             ReadFileTool(root_dir=ROOT_DIR),
             process_csv,
-            
+
             query_website_tool,
             HumanInputRun(),
             zapier_tools
