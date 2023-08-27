@@ -1,5 +1,4 @@
 langchain
-openai
 transformers
 faiss-gpu
 langchain-experimental
