@@ -1,9 +1,10 @@
 import os
+
 from profit.agent import Agent
+from llama import LlamaClarifaiChat 
 
 class ProfitPilot:
     def __init__(self,
-                 #openai_api_key: str = None,
                  ai_name: str = None,
                  ai_role: str = None,
                  external_tools = None,
@@ -15,10 +16,8 @@ class ProfitPilot:
                  salesperson_name: str = None,
                  human_in_the_loop=False,):
         super().__init__()
-        self.openai_api_key = openai_api_key
         self.external_tools = external_tools
         self.human_in_the_loop = human_in_the_loop
-        self.external_tools = external_tools
 
         self.ai_name = ai_name
         self.ai_role = ai_role
@@ -26,10 +25,12 @@ class ProfitPilot:
 
         self.company_values = company_values
         self.conversation_type = conversation_type
-        self.comversation_purpose = conversation_purpose
+        self.conversation_purpose = conversation_purpose
 
         self.company_business = company_business
         self.salesperson_name = salesperson_name
+
+        self.chat_interface = LlamaClarifaiChat()
 
         self.system_prompt = f"""
         You're the best cold emailer of APAC AI, you follow the principles of these books: SPIN Selling, To sell is Human, and FANATICAL Prospecting
@@ -76,7 +77,6 @@ class ProfitPilot:
 
     def run(self, task):
         node = Agent(
-            #openai_api_key = self.openai_api_key,
             ai_name=self.ai_name,
             ai_role=self.system_prompt,
             human_in_the_loop=self.human_in_the_loop,
@@ -84,6 +84,4 @@ class ProfitPilot:
         )
         response = node.run(task)
         print(response)
-
-
 
