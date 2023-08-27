@@ -4,11 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 class LLama2:
     def __init__(self, 
-<<<<<<< Updated upstream
                  model_id = "georgesung/llama2_7b_chat_uncensored", 
-=======
-                 model_id = "meta-llama/Llama-2-7b-chat-hf", 
->>>>>>> Stashed changes
                  device: str = None, 
                  max_length: int = 2000, 
                  quantize: bool = False, 
