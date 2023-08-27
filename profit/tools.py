@@ -5,8 +5,8 @@ import os
 from contextlib import contextmanager
 from typing import Optional
 
-from profit.webscraper import scraper, parse_data
-from profit.email_drafter import email_generator
+# from profit.webscraper import scraper, parse_data
+# from profit.email_drafter import email_generator
 
 import pandas as pd
 from langchain.agents import tool
@@ -68,31 +68,31 @@ def process_csv(
             return f"Error: {e}"
 
 
-@tool
-def scrape_data(url: str) -> str:
-    """Load the specified URLs using Selenium-wire and parse using BeautifulSoup."""
-    with pushd(ROOT_DIR):
-        try:
-            with open("docs/input.txt", "w") as f:
-                f.write(url)
-            scraper.main()
-            result = parse_data.parse_info()
-            return result
-        except Exception as e:
-            return f"Error: {e}"
+# @tool
+# def scrape_data(url: str) -> str:
+#     """Load the specified URLs using Selenium-wire and parse using BeautifulSoup."""
+#     with pushd(ROOT_DIR):
+#         try:
+#             with open("docs/input.txt", "w") as f:
+#                 f.write(url)
+#             scraper.main()
+#             result = parse_data.parse_info()
+#             return result
+#         except Exception as e:
+#             return f"Error: {e}"
 
 
-@tool
-def draft_email() -> str:
-    with pushd(ROOT_DIR):
-        with open("docs/results.txt", "r") as f:
-            data_input = f.read()
-        if not data_input:
-            raise ValueError("No data found, run webscraper before running drafter")
-        try:
-            return email_generator.run_email_draft()
-        except Exception as e:
-            return f"Error: {e}"
+# @tool
+# def draft_email() -> str:
+#     with pushd(ROOT_DIR):
+#         with open("docs/results.txt", "r") as f:
+#             data_input = f.read()
+#         if not data_input:
+#             raise ValueError("No data found, run webscraper before running drafter")
+#         try:
+#             return email_generator.run_email_draft()
+#         except Exception as e:
+#             return f"Error: {e}"
 
 
 async def async_load_playwright(url: str) -> str:
