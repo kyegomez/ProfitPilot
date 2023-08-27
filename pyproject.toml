@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "profit-pilot"
-version = "0.0.3"
+version = "0.0.4"
 description = "ProfitPilot - AI Agents"
 license = "MIT"
 authors = ["Kye Gomez <kye@apac.ai>"]
@@ -28,13 +28,9 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-clarifai = "*"
-streamlit = "*"
 langchain-experimental = "*"
 langchain = "*"
 transformers = "*"
-clarifai-grpc = "*"
-streamlit-chat = "*"
 pydantic = "*"
 openai = "*"
 faiss-gpu = "1.7.2"
