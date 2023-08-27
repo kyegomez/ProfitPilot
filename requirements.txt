@@ -9,4 +9,3 @@ openai
 bs4 
 asyncio
 vectordb
-typing 
