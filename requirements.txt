@@ -2,7 +2,6 @@ langchain
 transformers
 faiss-gpu
 langchain-experimental
-transformers
 torch
 pandas
 sentencepiece
