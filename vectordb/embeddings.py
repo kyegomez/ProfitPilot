@@ -7,7 +7,7 @@ from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddi
 from dotenv import load_dotenv
 from vectordb.selector import BaseSelector
 
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+api_key = os.environ.get("OPENAI_API_KEY")
 
 load_dotenv()
 
@@ -15,8 +15,11 @@ logger = loguru.logger
 
 
 class EmbeddingOptions(Enum):
-    OPENAI_EMBEDDINGS: OpenAIEmbeddings
-    SENTENCE_TRANSFORMERS_EMBEDDING: SentenceTransformerEmbeddings
+    OPENAI_EMBEDDINGS = OpenAIEmbeddings
+    SENTENCE_TRANSFORMERS_EMBEDDING = SentenceTransformerEmbeddings
+
+
+EmbeddingOptions.OPENAI_EMBEDDINGS.value.openai_api_key = api_key
 
 
 class EmbeddingSelector(BaseSelector):
@@ -25,19 +28,27 @@ class EmbeddingSelector(BaseSelector):
         self.embedding = default_embedding
         logger.info("Initializing EmbeddingSelector")
         self.openai_embeddings = EmbeddingOptions.OPENAI_EMBEDDINGS
-        self.sent_trans_embeddings = EmbeddingOptions.SENTENCE_TRANSFORMERS_EMBEDDING
-        self.initialize_maps(list(EmbeddingOptions))
+        self.sentence_transformer_embeddings = (
+            EmbeddingOptions.SENTENCE_TRANSFORMERS_EMBEDDING
+        )
+        self.initialize_maps(EmbeddingOptions)
 
     def get_openai_embeddings(self):
         logger.info("Getting OpenAI Embeddings")
-        self.openai_embeddings.openai_api_key = os.environ.get("OPENAI_API_KEY")
-        self.openai_embeddings.model = "text-embedding-ada-002"
-        self.openai_embeddings.show_progress_bar = True
-        self.openai_embeddings.request_timeout = 60
-        return self.select("openai_embeddings")
+        if not isinstance(self.openai_embeddings, OpenAIEmbeddings):
+            self.openai_embeddings = OpenAIEmbeddings(
+                openai_api_key=os.environ.get("OPENAI_API_KEY"),
+                client=openai,
+                model="text-embedding-ada-002",
+                show_progress_bar=True,
+                request_timeout=60,
+            )
+        return self.select("OPENAI_EMBEDDINGS")
 
-    def sentence_transformer_embeddings(self):
+    def get_sentence_transformer_embeddings(self):
         logger.info("Getting Sentence Transformer Embeddings")
-        self.sent_trans_embeddings.show_progress_bar = True
-        self.sent_trans_embeddings.request_timeout = 60
+        if not isinstance(
+            self.sentence_transformer_embeddings, SentenceTransformerEmbeddings
+        ):
+            self.sentence_transformer_embeddings = SentenceTransformerEmbeddings()
         return self.select("sentence_transformer_embeddings")

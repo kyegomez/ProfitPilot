@@ -5,4 +5,5 @@ from vectordb.loaders import LoaderSelector
 
 
 class VectorStore:
-    
+    def __init__(self):
+        pass

@@ -28,16 +28,16 @@ class RetrieverSelector(BaseSelector):
             RetrieverOptions.CONTEXTUAL_COMPRESSION_RETRIVER
         )
         self.retriever = default_retriever
-        self.initialize_maps(list(RetrieverOptions))
+        self.initialize_maps(RetrieverOptions)
 
     def get_self_query_retriever(self):
         logger.info("Getting  self_query_retriver")
-        return self.select("self_query_retriever")
+        return self.select("SELF_QUERY_RETRIEVER")
 
     def get_ensemble_retriever(self):
         logger.info("Getting  ensemble_retriver")
-        return self.select("ensemble_retriever")
+        return self.select("ENSEMBLE_RETRIVER")
 
     def get_contextual_compression_retriever(self):
         logger.info("Getting  contextual_compression_retriver")
-        return self.select("contextual_compression_retriever")
+        return self.select("CONTEXTUAL_COMPRESSION_RETRIVER")
