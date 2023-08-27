@@ -23,9 +23,9 @@ from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
 from pydantic import Field
 
-# from profit.llamachat import LlamaClarifaiChat
+from profit.llama2 import LLama2
 
-# llm = LlamaClarifaiChat()
+llm = LLama2()
 
 from langchain.agents.agent_toolkits import ZapierToolkit
 from langchain.utilities.zapier import ZapierNLAWrapper
