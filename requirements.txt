@@ -3,3 +3,17 @@ streamlit
 streamlit-chat
 langchain-experimental
 langchain
+faiss-gpu==1.7.2
+loguru
+openai
+bs4 
+asyncio
+vectordb
+typing 
+subprocess
+json
+google
+pandas 
+urllib
+argparse
+parse_html
