@@ -16,3 +16,4 @@ nltk
 unstructured
 python-dotenv
 loguru
+transformers
