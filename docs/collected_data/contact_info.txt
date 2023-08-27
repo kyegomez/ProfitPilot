@@ -1,8 +1,2 @@
-{
-    "Phone Numbers": [
-        "1692045530",
-        "1692045449",
-        "1692984713",
-        "1692984718"
-    ]
-}
+"no contact information collected\n---\n"no contact information collected
+---

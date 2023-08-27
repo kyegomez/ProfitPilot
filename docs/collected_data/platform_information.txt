@@ -1,1 +1,2 @@
-"no platforms collected"
+"no platforms collected\n---\n"no platforms collected
+---

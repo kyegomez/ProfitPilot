@@ -4,7 +4,6 @@ from __future__ import print_function
 import os.path
 import base64
 import sys
-import google.auth
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -14,6 +13,8 @@ from email.message import EmailMessage
 from dotenv import load_dotenv
 
 load_dotenv()
+
+your_email = "bakobiibizo@gmail.com"
 
 draft_email_subject = None
 for i, arg in enumerate(sys.argv):
@@ -79,7 +80,7 @@ def gmail_create_draft():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                "./creds/client-secret.json", SCOPES
+                "./creds/CLIENT_SECRET.json", SCOPES
             )
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
@@ -94,7 +95,7 @@ def gmail_create_draft():
         message.set_content(draft_email)
 
         message["To"] = user_email
-        message["From"] = "richard@bakobi.com"
+        message["From"] = your_email
         message["Subject"] = draft_email_subject
 
         # encoded message
