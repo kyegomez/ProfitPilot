@@ -1,1 +1,83 @@
-[["gaia.l.a.r", []]]
+[{"url": "http://clients2.google.com/time/1/current?cup2key=7:yYFln79ipLL-jmtu8lX0LsWWQGJlE0z_VR0oaF07Evw&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}, {"url": "https://accounts.google.com/ListAccounts?gpsia=1&source=ChromiumBrowser&json=standard"}, {"url": "https://python.langchain.com/docs/modules/data_connection/retrievers/contextual_compression/"}, {"url": "https://python.langchain.com/assets/css/styles.129f27fa.css"}, {"url": "https://python.langchain.com/assets/js/runtime~main.6b06702d.js"}, {"url": "https://python.langchain.com/assets/js/main.e47c4184.js"}, {"url": "https://drive.google.com/uc?id=1CtNgWODXZudxAWSRiWgSGEoTNrUFT98v"}, {"url": "https://doc-0c-bk-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/cut7d8lona7bfv4miispqeo2t96k4k4k/1693161075000/02475313820401197782/*/1CtNgWODXZudxAWSRiWgSGEoTNrUFT98v?uuid=064753e4-0e54-4125-b269-b61f3e19bc97"}, {"url": "https://python.langchain.com/assets/js/1be78505.8ee05a39.js"}, {"url": "https://python.langchain.com/assets/js/89508645.1bee8fd2.js"}, {"url": "https://python.langchain.com/assets/js/935f2afb.ba557785.js"}, {"url": "https://python.langchain.com/assets/js/83394.c3a0ffd9.js"}, {"url": "https://python.langchain.com/assets/js/89056.2cea12a3.js"}, {"url": "https://python.langchain.com/assets/js/17896441.06f75639.js"}, {"url": "https://python.langchain.com/assets/js/ca79f308.756847da.js"}, {"url": "https://content-autofill.googleapis.com/v1/pages/ChRDaHJvbWUvMTE2LjAuNTg0NS45NhIQCauW_LTrXoi3EgUNvOynpQ==?alt=proto"}, {"url": "http://clients2.google.com/time/1/current?cup2key=7:9U2zNnKVcOCUu4eGf_VoI3NXi3smgxF8iXVMfFiwzn8&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}]One challenge with retrieval is that usually you don't know the specific queries your document storage system will face when you ingest data into the system. This means that the information most relevant to a query may be buried in a document with a lot of irrelevant text. Passing that full document through your application can lead to more expensive LLM calls and poorer responses.
+Contextual compression is meant to fix this. The idea is simple: instead of immediately returning retrieved documents as-is, you can compress them using the context of the given query, so that only the relevant information is returned. “Compressing” here refers to both compressing the contents of an individual document and filtering out documents wholesale.
+To use the Contextual Compression Retriever, you'll need:
+The Contextual Compression Retriever passes queries to the base Retriever, takes the initial documents and passes them through the Document Compressor. The Document Compressor takes a list of Documents and shortens it by reducing the contents of Documents or dropping Documents altogether.
+
+Let's start by initializing a simple vector store retriever and storing the 2023 State of the Union speech (in chunks). We can see that given an example question our retriever returns one or two relevant docs and a few irrelevant docs. And even the relevant docs have a lot of irrelevant information in them.
+Now let's wrap our base retriever with a ContextualCompressionRetriever. We'll add an LLMChainExtractor, which will iterate over the initially returned documents and extract from each only the content that is relevant to the query.
+The LLMChainFilter is slightly simpler but more robust compressor that uses an LLM chain to decide which of the initially retrieved documents to filter out and which ones to return, without manipulating the document contents.
+Making an extra LLM call over each retrieved document is expensive and slow. The EmbeddingsFilter provides a cheaper and faster option by embedding the documents and query and only returning those documents which have sufficiently similar embeddings to the query.
+Using the DocumentCompressorPipeline we can also easily combine multiple compressors in sequence. Along with compressors we can add BaseDocumentTransformers to our pipeline, which don't perform any contextual compression but simply perform some transformation on a set of documents. For example TextSplitters can be used as document transformers to split documents into smaller pieces, and the EmbeddingsRedundantFilter can be used to filter out redundant documents based on embedding similarity between documents.
+Below we create a compressor pipeline by first splitting our docs into smaller chunks, then removing redundant documents, and then filtering based on relevance to the query.
+#docusaurus_skipToContent_fallback
+/
+/docs/get_started/introduction
+/docs/use_cases
+/docs/integrations
+https://api.python.langchain.com
+https://smith.langchain.com
+https://js.langchain.com/docs
+https://github.com/hwchase17/langchain
+/
+/docs/get_started/introduction
+/docs/use_cases
+/docs/integrations
+https://api.python.langchain.com
+https://smith.langchain.com
+https://js.langchain.com/docs
+https://github.com/hwchase17/langchain
+/docs/get_started
+/docs/get_started/introduction
+/docs/get_started/installation
+/docs/get_started/quickstart
+/docs/modules/
+/docs/modules/model_io/
+/docs/modules/data_connection/
+/docs/modules/data_connection/document_loaders/
+/docs/modules/data_connection/document_transformers/
+/docs/modules/data_connection/text_embedding/
+/docs/modules/data_connection/vectorstores/
+/docs/modules/data_connection/retrievers/
+/docs/modules/data_connection/retrievers/MultiQueryRetriever
+/docs/modules/data_connection/retrievers/contextual_compression/
+/docs/modules/data_connection/retrievers/ensemble
+/docs/modules/data_connection/retrievers/multi_vector
+/docs/modules/data_connection/retrievers/parent_document_retriever
+/docs/modules/data_connection/retrievers/self_query/
+/docs/modules/data_connection/retrievers/time_weighted_vectorstore
+/docs/modules/data_connection/retrievers/vectorstore
+/docs/modules/data_connection/retrievers/web_research
+/docs/modules/data_connection/indexing
+/docs/modules/chains/
+/docs/modules/memory/
+/docs/modules/agents/
+/docs/modules/callbacks/
+/docs/modules/
+/docs/guides
+/docs/ecosystem
+/docs/additional_resources
+/docs/community
+/
+/docs/modules/
+/docs/modules/data_connection/
+/docs/modules/data_connection/retrievers/
+#get-started
+#using-a-vanilla-vector-store-retriever
+#adding-contextual-compression-with-an-llmchainextractor
+#more-built-in-compressors-filters
+#llmchainfilter
+#embeddingsfilter
+/docs/modules/data_connection/retrievers/MultiQueryRetriever
+/docs/modules/data_connection/retrievers/ensemble
+https://discord.gg/cU2adEyC7w
+https://twitter.com/LangChainAI
+https://github.com/hwchase17/langchain
+https://github.com/hwchase17/langchainjs
+https://langchain.com
+https://blog.langchain.dev
+no contact information collected
+---
+no platforms collected
+---
+no integrations collected
+---

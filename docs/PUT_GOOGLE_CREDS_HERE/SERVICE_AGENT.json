@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "onyxportal-88313",
+  "private_key_id": "9e2b3af8f8e9c39941e85f74e68d291cb8d5a6f6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDiJddcCvyMSRCt\n6364X8ukpoi7J5rNz5f3v447IR0H0V+qtUchTopTTXQlcQIB+Wn+sbFzwD5ul3Wu\ndF02jhM5J9ANM3agna+xNK74fFvLbHbDyYE/zNi/xj8rwqzRPC9oqlHjns8HQR9Y\nSm+KcWNQcVMAgPXRnrPV4axq0UK0RBAVSZBmrudLQ8VdkiZf+7MHtdzzFikNhIaM\nTWE5G2+CLIHt5soLoKI40Rgq4FYtcud8pCeaJ74rmPysvwKZZUpgyRi+RMq+/ZhP\npFH2fTXtT5201C1GQYd9GhPYZsQA65WkMEGyxZ0+also529PPu/kmo1zwBZ7bUjP\noMfoz1fFAgMBAAECggEABaAysvvO+9/BcMzVR9mSOP6vk2r7zeI71zzxA9riBv9t\nZX4W+Twj8siQJXJMk3yp510c8KfipbZSMMx87njVqkFUSqUcxAgdhnICEZ++Wi7Q\n5t6iFCfmEyHnu7tJuKF0/cyRjEZiGL3E/YRJ3A7QDVXps68sQ6eytOplSKRQstKb\n/tXvLVAk9znos/q2Y3kpHLwnDVn7ZvVVEnw57ukqpo730pNqoPYiEo9C29ojSMNj\nsqzYuYTvD/agIgVKYLwhwAKIBnBrz9GFrHK/tFm7oLxTBjkRejgGCbXnfnpkcvFP\n3UMY/NTQbO1lfdfmhCNzGVxmF2nAjSca1ye9FJ0/4QKBgQD0Gmfdnqnx2PrSY+JK\nFzi53qdeyJgoA7z6d2G2i2nHznzmHDDZJC9mKra7SkZpTR8EHlXqczKpfDnaygPG\nWD19s5ZZpLDZKAyYe2Ge/9ti/GMxKRzceXVD1x4NJfucQKSwijfpFKTppAojXidl\n/EsKEmrLET7Pj3xzXAoS3cImiQKBgQDtK2mtqlgIVe+Pzn4hjfmT5ZmLRtsNgTYI\nyWXeobEzVq75HDTwytljTojkygr15Pwk/m+fO/KHiZP7UERbz+oDZyyQksgxaHZk\nRrdlRhHI7Dholit0gPtUs3H4gTxftBEQ+k9MOVmbuUj3D5HDSR40T1xIaEl8sNlw\nPEcqBbaYXQKBgQCrPNLb/u/Mvp/Fc1hNDVk32l+i+Cj0+RpaweCEA+yiw9GOQvxp\ndx7hFtm1LPeT6wv1AarXmxRRHNohB1H6k/Ae/BperE97JsMfPH5Q4b9vAwo6dFLQ\nv0tp2cA1DQ4ioJ5nUa7DDT5awD50bRpKSuABIsZTybc8N7Xf3xMaBQKrsQKBgFdg\npCmQVaiUiJMRv5R7KxUbBOu0KiYakZ7BHF/ecFt6tzId+z8vbNHScEriSRF40JCM\nkPE4c80NmdCALP8qZYvlahzFhy30z5F4ID8WhpzgspONp+rfTjlRd07Xxjd4LsVz\ngt2RT3s40zH6sXgiKxeYmWYvzcs7mJBqFMndmv0dAoGAT6GweikYlgbj20r8JPJP\n1AJ2ye/sjH+4xX9Y4alHHpwJG1rxHqQNBjwsRhvaxd0K2nSUn3Lsz0P6smHZFL9h\nq/JND6j3qYGX2T6KrLPp23NGo81zgZVDIlU9pFvegBGV6g9/I5iw/PKt1IJY6OJw\nmJRTVrfmtLzHxQtO7Y3Mrd8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "gsuite-service@onyxportal-88313.iam.gserviceaccount.com",
+  "client_id": "104847416250246856992",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gsuite-service%40onyxportal-88313.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

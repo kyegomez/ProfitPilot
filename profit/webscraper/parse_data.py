@@ -10,6 +10,12 @@ INTEGRATIONS_PATH = "./docs/collected_data/integrations.txt"
 URL_PATH = "./docs/collected_data/urls.txt"
 PARAGRAPH_PATH = "./docs/collected_data/paragraphs.txt"
 HTML_CONTENT_PATH = "./docs/collected_data/html_content.html"
+RESULTS_PATH = "./docs/collected_data/results.txt"
+
+
+def write_file(path, content, mode="a"):
+    with open(path, mode, encoding="utf-8") as file:
+        file.write(content)
 
 
 def parse_info(html_content_path=HTML_CONTENT_PATH):
@@ -30,26 +36,23 @@ def parse_info(html_content_path=HTML_CONTENT_PATH):
     logger.info(platform_information)
     integrations = get_integrations(soup)
     logger.info(integrations)
+    for paragraph in paragraphs:
+        write_file(PARAGRAPH_PATH, f"{paragraph}\n")
+        write_file(RESULTS_PATH, f"{paragraph}\n", mode="a")
+    for anchor in anchors:
+        write_file(URL_PATH, f"{anchor}\n")
+        write_file(RESULTS_PATH, f"{anchor}\n", mode="a")
+    write_file(CONTACT_INFO_PATH, f"{contact_info}\n---\n")
+    write_file(RESULTS_PATH, f"{contact_info}\n---\n", mode="a")
+    write_file(PLATFORM_INFO_PATH, f"{platform_information}\n---\n")
+    write_file(RESULTS_PATH, f"{platform_information}\n---\n", mode="a")
+    write_file(INTEGRATIONS_PATH, f"{integrations}\n---\n")
+    write_file(RESULTS_PATH, f"{integrations}\n---\n", mode="a")
 
-    with open(PARAGRAPH_PATH, "a", encoding="utf-8") as file:
-        for paragraph in paragraphs:
-            file.write(f"{paragraph}\n")
-        file.write("---\n")
-    with open(URL_PATH, "a", encoding="utf-8") as file:
-        for anchor in anchors:
-            file.write(f"{anchor}\n")
-        file.write("---\n")
-    with open(CONTACT_INFO_PATH, "a", encoding="utf-8") as file:
-        file.write(json.dumps(f"{contact_info}\n---\n", indent=4))
-    with open(PLATFORM_INFO_PATH, "a", encoding="utf-8") as file:
-        file.write(json.dumps(f"{platform_information}\n---\n", indent=4))
-    with open(INTEGRATIONS_PATH, "a", encoding="utf-8") as file:
-        file.write(json.dumps(f"{integrations}\n---\n", indent=4))
+    with open(RESULTS_PATH, "r", encoding="utf-8") as file:
+        result = file.read()
 
-    if not (overview := soup.prettify()):
-        raise ValueError(f"{logger.error('Could not parse the HTML content')}")
-    logger.info(overview[:500])
-    return overview
+    return result
 
 
 def get_platform_information(soup):

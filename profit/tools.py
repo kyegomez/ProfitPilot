@@ -4,6 +4,8 @@ import os
 # Tools
 from contextlib import contextmanager
 from typing import Optional
+from webscraper import scraper, parse_data
+from email_drafter import email_generator
 
 import pandas as pd
 from langchain.agents import tool
@@ -41,6 +43,7 @@ def pushd(new_dir):
     finally:
         os.chdir(prev_dir)
 
+
 @tool
 def process_csv(
     llm, csv_file_path: str, instructions: str, output_path: Optional[str] = None
@@ -62,7 +65,34 @@ def process_csv(
             return result
         except Exception as e:
             return f"Error: {e}"
-        
+
+
+@tool
+def scrape_data(url: str) -> str:
+    """Load the specified URLs using Selenium-wire and parse using BeautifulSoup."""
+    with pushd(ROOT_DIR):
+        try:
+            with open("docs/input.txt", "w") as f:
+                f.write(url)
+            scraper.main()
+            result = parse_data.parse_info()
+            return result
+        except Exception as e:
+            return f"Error: {e}"
+
+
+@tool
+def draft_email() -> str:
+    with pushd(ROOT_DIR):
+        with open("docs/results.txt", "r") as f:
+            data_input = f.read()
+        if not data_input:
+            raise ValueError("No data found, run webscraper before running drafter")
+        try:
+            return email_generator.run_email_draft()
+        except Exception as e:
+            return f"Error: {e}"
+
 
 async def async_load_playwright(url: str) -> str:
     """Load the specified URLs using Playwright and parse using BeautifulSoup."""
@@ -91,9 +121,11 @@ async def async_load_playwright(url: str) -> str:
         await browser.close()
     return results
 
+
 def run_async(coro):
     event_loop = asyncio.get_event_loop()
     return event_loop.run_until_complete(coro)
+
 
 @tool
 def browse_web_page(url: str) -> str:
@@ -104,18 +136,22 @@ def browse_web_page(url: str) -> str:
 def _get_text_splitter():
     return RecursiveCharacterTextSplitter(
         # Set a really small chunk size, just to show.
-        chunk_size = 500,
-        chunk_overlap  = 20,
-        length_function = len,
+        chunk_size=500,
+        chunk_overlap=20,
+        length_function=len,
     )
 
 
 class WebpageQATool(BaseTool):
     name = "query_webpage"
-    description = "Browse a webpage and retrieve the information relevant to the question."
-    text_splitter: RecursiveCharacterTextSplitter = Field(default_factory=_get_text_splitter)
+    description = (
+        "Browse a webpage and retrieve the information relevant to the question."
+    )
+    text_splitter: RecursiveCharacterTextSplitter = Field(
+        default_factory=_get_text_splitter
+    )
     qa_chain: BaseCombineDocumentsChain
-    
+
     def _run(self, url: str, question: str) -> str:
         """Useful for browsing websites and scraping the text information."""
         result = browse_web_page.run(url)
@@ -124,12 +160,20 @@ class WebpageQATool(BaseTool):
         results = []
         # TODO: Handle this with a MapReduceChain
         for i in range(0, len(web_docs), 4):
-            input_docs = web_docs[i:i+4]
-            window_result = self.qa_chain({"input_documents": input_docs, "question": question}, return_only_outputs=True)
+            input_docs = web_docs[i : i + 4]
+            window_result = self.qa_chain(
+                {"input_documents": input_docs, "question": question},
+                return_only_outputs=True,
+            )
             results.append(f"Response from window {i} - {window_result}")
-        results_docs = [Document(page_content="\n".join(results), metadata={"source": url})]
-        return self.qa_chain({"input_documents": results_docs, "question": question}, return_only_outputs=True)
-    
+        results_docs = [
+            Document(page_content="\n".join(results), metadata={"source": url})
+        ]
+        return self.qa_chain(
+            {"input_documents": results_docs, "question": question},
+            return_only_outputs=True,
+        )
+
     async def _arun(self, url: str, question: str) -> str:
         raise NotImplementedError
 
