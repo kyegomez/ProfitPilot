@@ -27,6 +27,7 @@ class Agent:
         self.human_in_the_loop = human_in_the_loop
         self.ai_name = ai_name
         self.ai_role = ai_role
+        self.chat_interface = LlamaClarifaiChat()
 
         self.setup_tools(external_tools)
         self.setup_memory()
@@ -58,7 +59,7 @@ class Agent:
                 ai_name=self.ai_name,
                 ai_role=self.ai_role,
                 tools=self.tools,
-                llm=llama,  
+                llm=self.chat_interface.process_user_prompt,  # Changed to get responses through the chat interface
                 memory=self.vectorstore.as_retriever(search_kwargs={"k": 8}),
                 human_in_the_loop=self.human_in_the_loop
             )
