@@ -22,7 +22,7 @@ from langchain.tools import BaseTool, DuckDuckGoSearchRun
 from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
 from pydantic import Field
-from llama import LlamaClarifaiChat
+from llamachat import LlamaClarifaiChat
 
 llm = LlamaClarifaiChat()
 
