@@ -31,18 +31,20 @@ def parse_info(html_content_path=HTML_CONTENT_PATH):
     integrations = get_integrations(soup)
     logger.info(integrations)
 
-    with open(PARAGRAPH_PATH, "w", encoding="utf-8") as file:
+    with open(PARAGRAPH_PATH, "a", encoding="utf-8") as file:
         for paragraph in paragraphs:
             file.write(f"{paragraph}\n")
-    with open(URL_PATH, "w", encoding="utf-8") as file:
+        file.write("---\n")
+    with open(URL_PATH, "a", encoding="utf-8") as file:
         for anchor in anchors:
             file.write(f"{anchor}\n")
-    with open(CONTACT_INFO_PATH, "w", encoding="utf-8") as file:
-        file.write(json.dumps(contact_info, indent=4))
-    with open(PLATFORM_INFO_PATH, "w", encoding="utf-8") as file:
-        file.write(json.dumps(platform_information, indent=4))
-    with open(INTEGRATIONS_PATH, "w", encoding="utf-8") as file:
-        file.write(json.dumps(integrations, indent=4))
+        file.write("---\n")
+    with open(CONTACT_INFO_PATH, "a", encoding="utf-8") as file:
+        file.write(json.dumps(f"{contact_info}\n---\n", indent=4))
+    with open(PLATFORM_INFO_PATH, "a", encoding="utf-8") as file:
+        file.write(json.dumps(f"{platform_information}\n---\n", indent=4))
+    with open(INTEGRATIONS_PATH, "a", encoding="utf-8") as file:
+        file.write(json.dumps(f"{integrations}\n---\n", indent=4))
 
     if not (overview := soup.prettify()):
         raise ValueError(f"{logger.error('Could not parse the HTML content')}")

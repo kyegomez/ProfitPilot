@@ -70,3 +70,40 @@ Provide your responses in valid JSON format with this schema:
 ---
 Please review your response and ensure it is valid JSON before submitting. 
 """
+
+    def prospect_report(self, prospect_name: str, prospect_data: str) -> str:
+        prospect = prospect_name
+        data = prospect_data
+        return f"""
+Your goal is to write a profile report about {prospect} for the use of your sales team .
+
+Be sure to include important details for the sales process. This should be addressed as an internal report directly to the sales team. Look for ways to leverage the knowledge for sales. You know that your team knows what they are doing so you are breif and to the point. You dont waste time telling them things they already know. You just report the facts.
+
+
+INFORMATION ABOUT {prospect}:
+{data}
+
+INCLUDE THE FOLLOWING PIECES IN YOUR RESPONSE:
+- Gather any contact information you can find. Including specific names, emails and numbers you can collect
+- A breif on the company including where its located, how long its been in operation, size of the business and anyother relevant information
+- Check if social media is available to view and what types. 
+- What other software they may be using on their website including forms, and hosting.
+- Do not make up any data that is not directly referenced in the documentation
+    
+Be specific and complete in your response.
+Review your response and make corrections if required.
+
+IF YOU RECEIVE AN ERROR:
+- Report it as an error and do not write the report.
+
+
+RESPONSE TEMPLATE:
+Company Overview:
+- YOUR_RESPONSE
+Internet presence:
+- YOUR_RESPONSE
+Website and software:
+- YOUR_RESPONSE
+Summary:
+- YOUR_RESPONSE
+"""

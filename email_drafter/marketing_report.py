@@ -1,128 +1,131 @@
-from dotenv import load_dotenv
 import os
-from langchain.document_loaders import UnstructuredURLLoader
+import json
+import openai
+import loguru
+import pandas as pd
+from dotenv import load_dotenv
+
+from langchain.document_loaders import JSONLoader
 from langchain.chains.summarize import load_summarize_chain
 from langchain.chat_models import ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.prompts import PromptTemplate
-import pandas as pd
-from scripts import url_parse
+
+from webscraper.main import main as webscraper
+from webscraper.main import INPUT_URL_LIST, HTML_PATH, RESULTS_PATH
+from webscraper.parse_data import (
+    parse_info,
+    CONTACT_INFO_PATH,
+    INTEGRATIONS_PATH,
+    PLATFORM_INFO_PATH,
+    URL_PATH,
+    PARAGRAPH_PATH,
+)
+from email_drafter import url_parse, message_templates
+
+OUTPUT_PATH = "./docs/collected_data/output.txt"
+
+logger = loguru.logger
 
 load_dotenv()
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def run_marketing_report(company_path):
-    def get_company_page(company_path):
-        url = company_path
+
+def get_company_page():
+    url_list = []
+    with open("INPUT_URL_LIST", "r", encoding="utf-8") as file:
+        url_list = file.readlines()
+    for url in url_list:
+        url = url.strip()
+        company_name = url_parse.extract_domain_name(url=url)
         if not url.startswith("https://"):
             url = f"https://{url}"
+            url_list.append(url)
 
-        print(url)
+        webscraper(url=url)
 
-        loader = UnstructuredURLLoader(urls=[url])
-        return loader.load()
+        parse_info(HTML_PATH)
 
-    data = get_company_page(company_path=company_path)
+        with open(PARAGRAPH_PATH, "r", encoding="utf-8") as file:
+            paragraph = file.read()
+        with open(URL_PATH, "r", encoding="utf-8") as file:
+            url = file.read()
+        with open(CONTACT_INFO_PATH, "r", encoding="utf-8") as file:
+            contact_info = file.read()
+        with open(PLATFORM_INFO_PATH, "r", encoding="utf-8") as file:
+            platform_info = file.read()
+        with open(INTEGRATIONS_PATH, "r", encoding="utf-8") as file:
+            integrations = file.read()
+        company_information = [
+            {
+                "paragraph": paragraph,
+            },
+            {
+                "url": url,
+            },
+            {
+                "contact_info": contact_info,
+            },
+            {
+                "platform_info": platform_info,
+            },
+            {"integrations": integrations},
+        ]
+        company_information_schema = [
+            {
+                paragraph: str,
+                url: str,
+                contact_info: str,
+                platform_info: str,
+                integrations: str,
+            }
+        ]
+        for entry in company_information:
+            with open(RESULTS_PATH, "a", encoding="utf-8") as file:
+                file.write(json.dumps(entry, indent=4))
+        print(f"You have {len(company_information)} document(s)")
+        loader = JSONLoader(
+            file_path=RESULTS_PATH,
+            jq_schema=json.dumps(company_information_schema),
+            text_content=True,
+        )
+        data = loader.load()
 
-    company_name = url_parse.extract_domain_name(company_path)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000, chunk_overlap=50
+        )
 
-    print(f"You have {len(data)} document(s)")
+        docs = text_splitter.split_documents(data)
 
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=0)
+        print(f"You now have {len(docs)} documents")
 
-    docs = text_splitter.split_documents(data)
+        manager = message_templates.TemplateManager()
+        for doc in docs:
+            prospect_profile = manager.prospect_profile(
+                prospect_name=company_name, prospect_data=json.dumps(doc)
+            )
 
-    print(f"You now have {len(docs)} documents")
+            prospect_report = manager.prospect_report(
+                prospect_data=prospect_profile, prospect_name=company_name
+            )
 
-    map_prompt = 
-    map_prompt_template = PromptTemplate(
-        template=map_prompt, input_variables=["text", "prospect"]
-    )
+             # =========================
+            # pipe this to llama. function is just there for show.
+            # call_a_llama(prospect_report)
+            # =========================
 
-    combine_prompt = """
-    Your goal is to write a profile report about {prospect} for the use of your sales team .
+            response = openai.Completion.create(
+                model="gpt-3.5-turbo",
+                message={"role": "user", "content": prospect_report},
+            )
+            output = response.choices[0].message
 
-    Be sure to include important details for the sales process. This should be addressed as an internal report directly to the sales team. Look for ways to leverage the knowledge for sales. You know that your team knows what they are doing so you are breif and to the point. You dont waste time telling them things they already know. You just report the facts.
+            with open(OUTPUT_PATH, "a", encoding="utf-8") as f:
+                f.write(output + "\n---\n")
 
-
-    INFORMATION ABOUT {prospect}:
-    {text}
-
-    INCLUDE THE FOLLOWING PIECES IN YOUR RESPONSE:
-    - Gather any contact information you can find. Including specific names, emails and numbers you can collect
-    - A breif on the company including where its located, how long its been in operation, size of the business and anyother relevant information
-    - Check if social media is available to view and what types. 
-    - What other software they may be using on their website including forms, and hosting.
-    - Do not make up any data that is not directly referenced in the documentation
-    
-    Be specific and complete in your response.
-    Review your response and make corrections if required.
-
-    IF YOU RECEIVE AN ERROR:
-    - Report it as an error and do not write the report.
-
-
-    RESPONSE TEMPLATE:
-    Company Overview:
-    - YOUR_RESPONSE
-    Internet presence:
-    - YOUR_RESPONSE
-    Website and software:
-    - YOUR_RESPONSE
-    Summary:
-    - YOUR_RESPONSE
-    """
-    combine_prompt_template = PromptTemplate(
-        template=combine_prompt,
-        input_variables=[
-            "prospect",
-            "text",
-        ],
-    )
-
-    llm = ChatOpenAI(api_key=openai_api_key)
-
-    chain = load_summarize_chain(
-        llm,
-        chain_type="map_reduce",
-        map_prompt=map_prompt_template,
-        combine_prompt=combine_prompt_template,
-        verbose=True,
-    )
-
-    output = chain(
-        {
-            "input_documents": docs,
-            "prospect": company_name,
-        }
-    )
-
-    print(output["output_text"])
-
-    # Save the output to a file
-    with open("docs/output.txt", "w", encoding="utf-8") as f:
-        f.write(output["output_text"] + "\n")
-
-    return output["output_text"]
-
-    # module for iteration
-    # for i, company in df_companies.iterrows():
-    #    print (f"{i + 1}. {company['Name']}")
-    #    page_data = get_company_page(company['Link'])
-    #    docs = text_splitter.split_documents(page_data)
-
-    #    output = chain({"input_documents": docs, \
-    #                "company":"RapidRoad", \
-    #                "sales_rep" : "Greg", \
-    #                "prospect" : company['Name'],
-    #                "company_information" : company_information
-    #               })
-
-    #    print (output['output_text'])
-    #    print ("\n\n")
+            return output["output_text"]
 
 
-if __name__ == "__main__":
-    print(run_marketing_report("allservicemoving.com"))
+i__name__ == "__main__":
+    print(get_company_page())

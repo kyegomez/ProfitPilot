@@ -9,6 +9,7 @@ logger = loguru.logger
 MODE = "scout"
 RESULTS_PATH = "docs/collected_data/results.txt"
 HTML_PATH = "docs/collected_data/html_content.html"
+INPUT_URL_LIST = "docs/input.txt"
 
 
 def get_driver():
@@ -75,16 +76,21 @@ def collect_data(driver, target_url):
     return {"urls": urls, "html_content": html_content}
 
 
-def main():
-    target_url = input("URL: ")
-    if not target_url.startswith("http"):
-        target_url = f"http://{target_url}"
-    driver = get_driver()
-    try:
-        result = collect_data(driver, target_url)
-        logger.info(f"Result: {result}")
-    finally:
-        driver.close()
+def main(url=None):
+    if url is None:
+        url = INPUT_URL_LIST
+    target_url = ""
+    with open(url, "r", encoding="utf-8") as file:
+        target_url = file.read()
+        if not target_url.startswith("http"):
+            target_url = f"http://{target_url}"
+        driver = get_driver()
+        try:
+            result = collect_data(driver, target_url)
+            logger.info(f"Result: {result}")
+            return result
+        finally:
+            driver.close()
 
 
 if __name__ == "__main__":
