@@ -10,10 +10,3 @@ bs4
 asyncio
 vectordb
 typing 
-subprocess
-json
-google
-pandas 
-urllib
-argparse
-parse_html
