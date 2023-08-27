@@ -1,4 +1,6 @@
+import streamlit as st
 from profit.main import ProfitPilot
+
 
 # Define variables for ProfitPilot
 AI_NAME = "Athena"
@@ -45,5 +47,24 @@ Best,
 {SALESPERSON_NAME}
 """
 
-# Run the task using the ProfitPilot instance
-pilot.run(task)
+
+def main():
+    st.title("ProfitPilot")
+    st.write("Welcome to profit pilot enter in your sales leads emails and information for personalized deal flow")
+
+    if st.button("Run"):
+        response = pilot.run(task)
+        st.write(f"ProfitPilot: {response}")
+
+    user_input = st.text_input("Your response:")
+    if st.button("Send"):
+        response = pilot.run(user_input)
+        st.write(f"Profitpilot: {response}")
+
+
+if __name__ == "__main__":
+    main()
+
+
+# # Run the task using the ProfitPilot instance
+# pilot.run(task)
