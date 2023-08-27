@@ -5,7 +5,7 @@ pydantic
 langchain
 openai
 transformers
-faiss-gpu==1.7.2
+faiss-gpu
 langchain-experimental
 clarifai
 transformers
