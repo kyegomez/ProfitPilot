@@ -5,7 +5,7 @@ from langchain.tools.human.tool import HumanInputRun
 from langchain.vectorstores import FAISS
 from langchain_experimental.autonomous_agents import AutoGPT
 
-from profit.llama2 import LLama2
+from profit.llama import LLama2
 from profit.tools import (
     ReadFileTool,
     WriteFileTool,
