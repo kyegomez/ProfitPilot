@@ -1,7 +1,7 @@
 import os
 
 from profit.agent import Agent
-from llama import LlamaClarifaiChat 
+from profit.llama import LlamaClarifaiChat 
 
 class ProfitPilot:
     def __init__(self,

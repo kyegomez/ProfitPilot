@@ -11,7 +11,7 @@ from profit.tools import (
     process_csv,
     query_website_tool,
 )
-import llama
+import profit.llama as llama
 
 ROOT_DIR = "./data/"
 
