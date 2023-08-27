@@ -1,3 +1,4 @@
+
 from profit.main import ProfitPilot
 
 # Define variables for ProfitPilot

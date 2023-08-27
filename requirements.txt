@@ -11,3 +11,7 @@ clarifai
 transformers
 torch
 pandas
+
+
+torch
+pandas
