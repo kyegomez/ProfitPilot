@@ -16,6 +16,7 @@ loguru
 transformers
 faiss-gpu==1.7.2
 langchain-experimental
-
 clarifai
 transformers
+torch
+pandas
