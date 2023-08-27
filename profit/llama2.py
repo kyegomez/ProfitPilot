@@ -6,7 +6,7 @@ class LLama2:
     def __init__(self, 
                  model_id = "meta-llama/Llama-2-70b-chat-hf", 
                  device: str = None, 
-                 max_length: int = 20, 
+                 max_length: int = 2000, 
                  quantize: bool = False, 
                  quantization_config: dict = None):
         self.logger = logging.getLogger(__name__)

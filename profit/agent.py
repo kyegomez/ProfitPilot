@@ -22,9 +22,8 @@ class Agent:
                  ai_name="Autobot Swarm Worker",
                  ai_role="Worker in a swarm",
                  external_tools = None,
-                human_in_the_loop=False,
-                 temperature=0.5):
-        self.temperature = temperature
+                 human_in_the_loop=False,
+                 ):
         self.human_in_the_loop = human_in_the_loop
         self.ai_name = ai_name
         self.ai_role = ai_role
