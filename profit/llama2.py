@@ -4,7 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 class LLama2:
     def __init__(self, 
-                 model_id: str, 
+                 model_id = "meta-llama/Llama-2-70b-chat-hf", 
                  device: str = None, 
                  max_length: int = 20, 
                  quantize: bool = False, 
