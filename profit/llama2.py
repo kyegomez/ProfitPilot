@@ -44,7 +44,6 @@ class LLama2:
             self.logger.error(f"Failed to generate the text: {e}")
             raise
 
-
     def generate(self, prompt_text: str, max_length: int = None):
         max_length = max_length if max_length else self.max_length
         try:
@@ -55,3 +54,4 @@ class LLama2:
         except Exception as e:
             self.logger.error(f"Failed to generate the text: {e}")
             raise
+
