@@ -6,13 +6,14 @@ from langchain.tools.human.tool import HumanInputRun
 from langchain.vectorstores import FAISS
 from langchain_experimental.autonomous_agents import AutoGPT
 
-from llama import LLama
+from profit.llama import LLama
+
 from profit.tools import (
     ReadFileTool,
     WriteFileTool,
     process_csv,
     query_website_tool,
-    zapier_tools,
+    # zapier_tools,
 )
 
 ROOT_DIR = "./data/"

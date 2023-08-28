@@ -28,7 +28,6 @@ from pydantic import Field
 llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
 
 # if llama:
-
 #     self.llm = LLama()
 # else:
 #     self.llm = ChatOpenAI(model_name='gpt4', 
