@@ -39,7 +39,6 @@ class Agent:
         self.openai_api_key = openai_api_key
 
         if llama:
-
             self.llm = LLama()
         else:
             self.llm = ChatOpenAI(model_name='gpt-4', 
