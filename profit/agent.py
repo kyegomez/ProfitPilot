@@ -35,7 +35,7 @@ class Agent:
         self.temperature = temperature
         self.openai_api_key = openai_api_key
 
-        if llama:
+        if llama is True:
             self.llm = LLama()
         else:
             self.llm = ChatOpenAI(model_name='gpt-4', 
