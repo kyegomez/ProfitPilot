@@ -1,12 +1,10 @@
 import faiss
+from langchain.chat_models import ChatOpenAI
 from langchain.docstore import InMemoryDocstore
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.tools.human.tool import HumanInputRun
 from langchain.vectorstores import FAISS
 from langchain_experimental.autonomous_agents import AutoGPT
-
-from langchain.chat_models import ChatOpenAI
-
 
 from profit.llama import LLama
 from profit.tools import (
@@ -15,7 +13,6 @@ from profit.tools import (
     draft_email,
     process_csv,
     query_website_tool,
-    scrape_data,
     zapier_tools,
 )
 
