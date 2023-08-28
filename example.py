@@ -25,7 +25,6 @@ pilot = ProfitPilot(
     company_business=COMPANY_BUSINESS,
     salesperson_name=SALESPERSON_NAME,
     human_in_the_loop=HUMAN_IN_THE_LOOP,
-    # prospect_name=PROSPECT_NAME,
 )
 
 # Define the task you want the agent to perform
