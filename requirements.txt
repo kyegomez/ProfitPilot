@@ -5,3 +5,5 @@ langchain-experimental
 torch
 pandas
 sentencepiece
+openai
+tiktoken

@@ -12,6 +12,7 @@ COMPANY_BUSINESS = "APAC AI"
 SALESPERSON_NAME = "John Doe"
 HUMAN_IN_THE_LOOP = False
 PROSPECT_NAME = "Jane Smith"  # Add the prospect's name here
+TEMPERATURE = 0.5
 
 # Create an instance of the ProfitPilot class
 pilot = ProfitPilot(
@@ -25,6 +26,9 @@ pilot = ProfitPilot(
     company_business=COMPANY_BUSINESS,
     salesperson_name=SALESPERSON_NAME,
     human_in_the_loop=HUMAN_IN_THE_LOOP,
+    temperature = TEMPERATURE,
+    llama=False,
+    openai_api_key="key"
 )
 
 # Define the task you want the agent to perform
