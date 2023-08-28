@@ -2,7 +2,7 @@ import logging
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-class LLama2:
+class LLama:
     def __init__(self, 
                  model_id = "georgesung/llama2_7b_chat_uncensored", 
                  device: str = None, 

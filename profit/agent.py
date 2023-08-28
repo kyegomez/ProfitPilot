@@ -5,7 +5,7 @@ from langchain.tools.human.tool import HumanInputRun
 from langchain.vectorstores import FAISS
 from langchain_experimental.autonomous_agents import AutoGPT
 
-from profit.llama import LLama2
+from profit.llama import LLama
 from profit.tools import (
     ReadFileTool,
     WriteFileTool,
@@ -28,7 +28,7 @@ class Agent:
         self.human_in_the_loop = human_in_the_loop
         self.ai_name = ai_name
         self.ai_role = ai_role
-        self.llama = LLama2()
+        self.llm = LLama()
 
         self.setup_tools(external_tools)
         self.setup_memory()
@@ -64,7 +64,7 @@ class Agent:
                 ai_name=self.ai_name,
                 ai_role=self.ai_role,
                 tools=self.tools,
-                llm=self.llama,
+                llm=self.llm,
                 memory=self.vectorstore.as_retriever(search_kwargs={"k": 8}),
                 human_in_the_loop=self.human_in_the_loop
             )
