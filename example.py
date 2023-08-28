@@ -27,7 +27,7 @@ pilot = ProfitPilot(
     salesperson_name=SALESPERSON_NAME,
     human_in_the_loop=HUMAN_IN_THE_LOOP,
     temperature = TEMPERATURE,
-    llama=False,
+    llama=True,
     openai_api_key="key"
 )
 
