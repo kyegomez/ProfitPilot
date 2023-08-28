@@ -6,7 +6,7 @@ def clear_chat():
     st.session_state.messages = [{"role": "assistant", "content": "Say something to get started!"}]
 
 
-st.title("Llama2 Clarifai Tutorial")
+st.title("Profit Pilot")
 
 
 if "messages" not in st.session_state:
