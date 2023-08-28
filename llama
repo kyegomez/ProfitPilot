@@ -11,8 +11,8 @@ const PAT = '1624534249ce4484833f717b8de006fb';
 const USER_ID = 'meta';    
 const APP_ID = 'Llama-2';
 // Change these to whatever model and text URL you want to use
-const MODEL_ID = 'llama2-13b-chat';
-const MODEL_VERSION_ID = '79a1af31aa8249a99602fc05687e8f40'; 
+const MODEL_ID = 'llama2-7b-chat';
+const MODEL_VERSION_ID = 'e52af5d6bc22445aa7a6761f327f7129';    
 const TEXT_FILE_URL = 'https://samples.clarifai.com/negative_sentence_12.txt';
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -49,10 +49,6 @@ const requestOptions = {
 // this will default to the latest version_id
 
 fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        if(data.status.code != 10000) console.log(data.status);
-        else console.log(data['outputs'][0]['data']['text']['raw']);
-    }).catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
