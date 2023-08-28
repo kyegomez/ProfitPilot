@@ -13,7 +13,7 @@ class ProfitPilot:
                  salesperson_name: str = None,
                  human_in_the_loop=False,
                  openai_api_key: str = None,
-                 temperature=None,
+                 temperature=0.5,
                  conversation_history = None):
         super().__init__()
         self.external_tools = external_tools
