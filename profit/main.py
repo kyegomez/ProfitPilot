@@ -11,7 +11,8 @@ class ProfitPilot:
                  conversation_purpose: str = None,
                  company_business: str = None,
                  salesperson_name: str = None,
-                 human_in_the_loop=False,):
+                 human_in_the_loop=False,
+                 openai_api_key: str = None):
         super().__init__()
         self.external_tools = external_tools
         self.human_in_the_loop = human_in_the_loop
@@ -19,6 +20,7 @@ class ProfitPilot:
         self.ai_name = ai_name
         self.ai_role = ai_role
         self.company_name = company_name
+        self.openai_api_key = openai_api_key
 
         self.company_values = company_values
         self.conversation_type = conversation_type
@@ -76,6 +78,9 @@ class ProfitPilot:
             ai_role=self.system_prompt,
             human_in_the_loop=self.human_in_the_loop,
             external_tools=self.external_tools
+            openai_api_key=self.openai_api_key
+            temperature=self.temperature
+            llama=False
         )
         response = node.run(task)
         print(response)
