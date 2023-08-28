@@ -53,7 +53,7 @@ class Agent:
 
             query_website_tool,
             HumanInputRun(),
-            zapier_tools,
+            # zapier_tools,
         ]
         if external_tools is not None:
             self.tools.extend(external_tools)
