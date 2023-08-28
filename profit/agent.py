@@ -10,7 +10,6 @@ from profit.llama import LLama
 from profit.tools import (
     ReadFileTool,
     WriteFileTool,
-    draft_email,
     process_csv,
     query_website_tool,
     zapier_tools,
