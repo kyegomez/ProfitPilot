@@ -1,49 +1,54 @@
 import streamlit as st
-from clarifai.auth.helper import ClarifaiAuthHelper
-from clarifai.client import create_stub
-from clarifai.listing.lister import ClarifaiResourceLister
-from clarifai.modules.css import ClarifaiStreamlitCSS
-from google.protobuf import json_format, timestamp_pb2
+from streamlit_chat import message
+import llama
 
-st.set_page_config(layout="wide")
-ClarifaiStreamlitCSS.insert_default_css(st)
+def clear_chat():
+    st.session_state.messages = [{"role": "assistant", "content": "Say something to get started!"}]
 
-# This must be within the display() function.
-auth = ClarifaiAuthHelper.from_streamlit(st)
-stub = create_stub(auth)
-userDataObject = auth.get_user_app_id_proto()
-lister = ClarifaiResourceLister(stub, auth.user_id, auth.app_id, page_size=16)
-st.title("Simple example to list inputs")
 
-with st.form(key="data-inputs"):
-  mtotal = st.number_input(
-      "Select number of inputs to view in a table:", min_value=10, max_value=100)
-  submitted = st.form_submit_button('Submit')
+st.title("Llama2 Clarifai Tutorial")
 
-if submitted:
-  if mtotal is None or mtotal == 0:
-    st.warning("Number of inputs must be provided.")
-    st.stop()
-  else:
-    st.write("Number of inputs in table will be: {}".format(mtotal))
 
-  # Stream inputs from the app
-  all_inputs = []
-  for inp in lister.inputs_generator():
-    all_inputs.append(inp)
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": "Say something to get started!"}]
 
-    if len(all_inputs) >= mtotal:
-      break
 
-  # Get some common stuff out of the inputs.
-  data = []
-  for inp in all_inputs:
-    data.append({
-        "id": inp.id,
-        "status": inp.status.description,
-        "created_at": timestamp_pb2.Timestamp.ToDatetime(inp.created_at),
-        "modified_at": timestamp_pb2.Timestamp.ToDatetime(inp.modified_at),
-        "metadata": json_format.MessageToDict(inp.data.metadata),
-    })
+with st.form("chat_input", clear_on_submit=True):
+    a, b = st.columns([4, 1])
 
-  st.dataframe(data)
+    user_prompt = a.text_input(
+        label="Your message:",
+        placeholder="Type something...",
+        label_visibility="collapsed",
+    )
+
+    b.form_submit_button("Send", use_container_width=True)
+
+
+for msg in st.session_state.messages:
+    message(msg["content"], is_user=msg["role"] == "user")
+
+
+if user_prompt:
+
+    print('user_prompt: ', user_prompt)
+
+    st.session_state.messages.append({"role": "user", "content": user_prompt})
+    
+    message(user_prompt, is_user=True)
+
+    response = llama.get_response(user_prompt)  # get response from llama2 API (in our case from Workflow we created before)
+
+    msg = {"role": "assistant", "content": response}
+
+    print('st.session_state.messages: ', st.session_state.messages)
+
+    st.session_state.messages.append(msg)
+
+    print('msg.content: ', msg["content"])
+
+    message(msg["content"])
+
+
+if len(st.session_state.messages) > 1:
+    st.button('Clear Chat', on_click=clear_chat)
