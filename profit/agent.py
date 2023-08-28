@@ -7,13 +7,11 @@ from langchain.vectorstores import FAISS
 from langchain_experimental.autonomous_agents import AutoGPT
 
 from profit.llama import LLama
-
 from profit.tools import (
     ReadFileTool,
     WriteFileTool,
     process_csv,
     query_website_tool,
-    # zapier_tools,
 )
 
 ROOT_DIR = "./data/"
@@ -34,8 +32,9 @@ class Agent:
 
         self.temperature = temperature
         self.openai_api_key = openai_api_key
+        self.llama = llama
 
-        if llama is True:
+        if self.llama is True:
             self.llm = LLama()
         else:
             self.llm = ChatOpenAI(model_name='gpt-4', 
