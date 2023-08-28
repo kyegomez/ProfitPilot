@@ -14,6 +14,7 @@ class ProfitPilot:
                  human_in_the_loop=False,
                  openai_api_key: str = None,
                  temperature=0.5,
+                 llama = None,
                  conversation_history = None):
         super().__init__()
         self.external_tools = external_tools
@@ -21,6 +22,8 @@ class ProfitPilot:
         self.ai_name = ai_name
         self.ai_role = ai_role
         self.company_name = company_name
+
+        self.llama = llama
 
         self.conversation_history = conversation_history
 
@@ -85,6 +88,7 @@ class ProfitPilot:
             external_tools=self.external_tools,
             openai_api_key=self.openai_api_key,
             temperature=self.temperature,
+            llama=self.llama
         )
         response = node.run(task)
         print(response)
