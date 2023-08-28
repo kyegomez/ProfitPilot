@@ -25,10 +25,10 @@ from pydantic import Field
 
 from profit.llama import LLama
 
-# llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
+llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
 
 # if llama:
-llm = LLama()
+# llm = LLama()
 # else:
 #     self.llm = ChatOpenAI(model_name='gpt4', 
 #                         openai_api_key=self.openai_api_key, 
