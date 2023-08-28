@@ -58,8 +58,6 @@ class Agent:
             query_website_tool,
             HumanInputRun(),
             zapier_tools,
-            draft_email,
-            scrape_data
         ]
         if external_tools is not None:
             self.tools.extend(external_tools)
