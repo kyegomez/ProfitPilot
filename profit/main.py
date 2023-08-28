@@ -31,7 +31,7 @@ class ProfitPilot:
         self.openai_api_key = openai_api_key
         self.temperature = temperature
 
-        self.system_prompt = f"""
+        self.ai_role = f"""
         You're the best cold emailer of APAC AI, you follow the principles of these books: SPIN Selling, To sell is Human, and FANATICAL Prospecting
 
         Never forget your name is {self.ai_name}. You work as a {self.ai_role}.
@@ -77,7 +77,7 @@ class ProfitPilot:
     def run(self, task):
         node = Agent(
             ai_name=self.ai_name,
-            ai_role=self.system_prompt,
+            ai_role=self.ai_role,
             human_in_the_loop=self.human_in_the_loop,
             external_tools=self.external_tools,
             openai_api_key=self.openai_api_key,
