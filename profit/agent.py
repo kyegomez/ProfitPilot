@@ -12,6 +12,7 @@ from profit.tools import (
     WriteFileTool,
     process_csv,
     query_website_tool,
+    zapier_tools
 )
 
 ROOT_DIR = "./data/"
@@ -53,7 +54,7 @@ class Agent:
 
             query_website_tool,
             HumanInputRun(),
-            # zapier_tools,
+            zapier_tools,
         ]
         if external_tools is not None:
             self.tools.extend(external_tools)
