@@ -7,7 +7,7 @@ class LLama:
                  model_id = "georgesung/llama2_7b_chat_uncensored", 
                  device: str = None, 
                  max_length: int = 2000, 
-                 quantize: bool = True, 
+                 quantize: bool = False, 
                  quantization_config: dict = None):
         self.logger = logging.getLogger(__name__)
         self.device = device if device else ('cuda' if torch.cuda.is_available() else 'cpu')
