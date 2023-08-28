@@ -77,9 +77,9 @@ class ProfitPilot:
             ai_name=self.ai_name,
             ai_role=self.system_prompt,
             human_in_the_loop=self.human_in_the_loop,
-            external_tools=self.external_tools
-            openai_api_key=self.openai_api_key
-            temperature=self.temperature
+            external_tools=self.external_tools,
+            openai_api_key=self.openai_api_key,
+            temperature=self.temperature,
             llama=False
         )
         response = node.run(task)
