@@ -13,13 +13,16 @@ class ProfitPilot:
                  salesperson_name: str = None,
                  human_in_the_loop=False,
                  openai_api_key: str = None,
-                 temperature=None):
+                 temperature=None,
+                 conversation_history = None):
         super().__init__()
         self.external_tools = external_tools
         self.human_in_the_loop = human_in_the_loop
         self.ai_name = ai_name
         self.ai_role = ai_role
         self.company_name = company_name
+
+        self.conversation_history = conversation_history
 
         self.company_values = company_values
         self.conversation_type = conversation_type
