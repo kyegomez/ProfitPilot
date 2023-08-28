@@ -85,7 +85,6 @@ class ProfitPilot:
             human_in_the_loop=self.human_in_the_loop,
             external_tools=self.external_tools,
             openai_api_key=self.openai_api_key,
-            temperature=self.temperature,
             llama=self.llama
         )
         response = node.run(task)
