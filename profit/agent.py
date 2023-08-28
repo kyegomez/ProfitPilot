@@ -23,7 +23,7 @@ class Agent:
                  external_tools = None,
                  human_in_the_loop=False,
                  llama = False,
-                 temperature = None,
+                 temperature = 0.5,
                  openai_api_key = None,
                  ):
         self.human_in_the_loop = human_in_the_loop
