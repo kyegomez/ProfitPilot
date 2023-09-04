@@ -3,7 +3,7 @@ from langchain.llms import Clarifai
 from langchain import PromptTemplate, LLMChain
 
 
-class ClarifaiLogic:
+class ClarifiLLM:
     def __init__(
             self, 
             clarifai_pat, 
@@ -28,5 +28,5 @@ class ClarifaiLogic:
     def generate(self, question):
         return self.llm_chain.run(question)
     
-    def call(self, question):
+    def __call__(self, question):
         return self.generate(question)
