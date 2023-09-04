@@ -7,3 +7,7 @@ pandas
 sentencepiece
 openai
 tiktoken
+google-api-python-client 
+google-auth-oauthlib 
+google-auth-httplib2 
+beautifulsoup4 

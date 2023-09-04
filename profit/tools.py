@@ -170,3 +170,37 @@ os.environ["ZAPIER_NLA_API_KEY"] = os.environ.get("ZAPIER_NLA_API_KEY", "")
 zapier = ZapierNLAWrapper()
 zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
 zapier_tools = zapier_toolkit.get_tools()
+
+
+
+
+# Gmail
+from langchain.agents.agent_toolkits import GmailToolkit
+from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
+
+email_toolkit = GmailToolkit()
+
+
+
+class GmailTool:
+    def __init__(
+        self,
+        token_file:  str = "token.json",
+        scopes = ["https://mail.google.com/"],
+        client_secrets_file = "credientials.json",
+    ):
+        super().__init__()
+        self.token_file = token_file
+        self.scopes = scopes
+        self.client_secrets_file = client_secrets_file   
+    def run(self):
+        self.credentials = get_gmail_credentials(
+            token_file=self.token_file,
+            scopes=self.scopes,
+            client_secrets_file=self.client_secrets_file
+        )
+
+        self.api_resource = build_resource_service(credentials=self.credentials)
+        self.toolkit = GmailToolkit(api_resource=self.api_resource)
+        self.tools = self.toolkit.get_tools()
+        return self.tools
