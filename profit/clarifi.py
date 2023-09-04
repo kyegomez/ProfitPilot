@@ -1,6 +1,4 @@
-from getpass import getpass
 from langchain.llms import Clarifai
-from langchain import PromptTemplate, LLMChain
 
 
 class ClarifiLLM:

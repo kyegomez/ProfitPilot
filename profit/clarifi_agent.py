@@ -1,5 +1,4 @@
 import faiss
-from langchain.chat_models import ChatOpenAI
 from langchain.docstore import InMemoryDocstore
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.tools.human.tool import HumanInputRun
