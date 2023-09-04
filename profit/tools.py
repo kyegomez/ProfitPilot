@@ -25,7 +25,13 @@ from pydantic import Field
 
 from profit.llama import LLama
 
+#gmail
+from langchain.agents.agent_toolkits import GmailToolkit
+from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
+
+
 llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
+
 
 # if llama:
 # llm = LLama()
@@ -175,9 +181,6 @@ zapier_tools = zapier_toolkit.get_tools()
 
 
 # Gmail
-from langchain.agents.agent_toolkits import GmailToolkit
-from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
-
 email_toolkit = GmailToolkit()
 
 

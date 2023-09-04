@@ -12,7 +12,8 @@ from profit.tools import (
     WriteFileTool,
     process_csv,
     query_website_tool,
-    zapier_tools
+    zapier_tools,
+    GmailTool
 )
 
 ROOT_DIR = "./data/"
@@ -38,9 +39,11 @@ class Agent:
         if self.llama is True:
             self.llm = LLama()
         else:
-            self.llm = ChatOpenAI(model_name='gpt-4', 
+            self.llm = ChatOpenAI(
+                                model_name='gpt-4', 
                                 openai_api_key=self.openai_api_key, 
-                                temperature=self.temperature)
+                                temperature=self.temperature
+                            )
 
         self.setup_tools(external_tools)
         self.setup_memory()
@@ -55,6 +58,7 @@ class Agent:
             query_website_tool,
             HumanInputRun(),
             zapier_tools,
+
         ]
         if external_tools is not None:
             self.tools.extend(external_tools)
