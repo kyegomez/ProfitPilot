@@ -16,6 +16,8 @@ from profit.tools import (
     GmailTool
 )
 
+model = GmailTool
+
 ROOT_DIR = "./data/"
 
 class Agent:

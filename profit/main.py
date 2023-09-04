@@ -1,4 +1,4 @@
-from profit.clarifi import Agent
+from profit.clarifi_agent import Agent
 
 class ProfitPilot:
     def __init__(self,
