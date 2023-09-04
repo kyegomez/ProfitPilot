@@ -6,10 +6,10 @@ from langchain import PromptTemplate, LLMChain
 class ClarifiLLM:
     def __init__(
             self, 
-            clarifai_pat, 
-            user_id="openai", 
-            app_id="chat-completion", 
-            model_id="GPT-3_5-turbo"
+            clarifai_pat: str = "890cdb0cb5aa4795ba51af9670120a1e", 
+            user_id="meta", 
+            app_id="Llama-2", 
+            model_id="llama2-70b-chat"
         ):
         self.CLARIFAI_PAT = clarifai_pat
         self.USER_ID = user_id
