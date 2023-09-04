@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "profit-pilot"
-version = "0.1.0"
+version = "0.1.2"
 description = "ProfitPilot - AI Agents"
 license = "MIT"
 authors = ["Kye Gomez <kye@apac.ai>"]
@@ -36,6 +36,11 @@ openai = "*"
 faiss-gpu = "1.7.2"
 torch = "*"
 pandas = "*"
+clarifai = "*"
+google-api-python-client = "*"
+google-auth-oauthlib = "*"
+google-auth-httplib2 = "*"
+beautifulsoup4 = "*"
 
 [tool.poetry.dev-dependencies]
 # Add development dependencies here

@@ -21,12 +21,12 @@ class ClarifiLLM:
             app_id=self.APP_ID, 
             model_id=self.MODEL_ID
         )
-        self.template = """Question: {question}\n\nAnswer: Let's think step by step."""
-        self.prompt = PromptTemplate(template=self.template, input_variables=["question"])
-        self.llm_chain = LLMChain(prompt=self.prompt, llm=self.clarifai_llm)
-    
+        # self.template = """Question: {question}\n\nAnswer: Let's think step by step."""
+        # self.prompt = PromptTemplate(template=self.template, input_variables=["question"])
+        # self.llm_chain = LLMChain(prompt=self.prompt, llm=self.clarifai_llm)
+
     def generate(self, question):
-        return self.llm_chain.run(question)
+        return self.clarifai_llm(question)
     
     def __call__(self, question):
-        return self.generate(question)
+        return self.clarifai_llm(question)
