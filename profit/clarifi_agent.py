@@ -42,6 +42,7 @@ class Agent:
 
         self.temperature = temperature
         self.llama = llama
+        self.openai_api_key = openai_api_key
 
         if self.llama is True:
             self.llm = clarifi

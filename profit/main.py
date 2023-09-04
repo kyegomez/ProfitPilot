@@ -15,7 +15,7 @@ class ProfitPilot:
             human_in_the_loop=False,
             llama = True,
             conversation_history = None,
-            openai_api_key: str = None,
+            openai_api_key = None,
         ):
         super().__init__()
         self.external_tools = external_tools
