@@ -181,10 +181,6 @@ zapier_tools = zapier_toolkit.get_tools()
 
 
 # Gmail
-email_toolkit = GmailToolkit()
-
-
-
 class GmailTool:
     def __init__(
         self,
@@ -207,3 +203,5 @@ class GmailTool:
         self.toolkit = GmailToolkit(api_resource=self.api_resource)
         self.tools = self.toolkit.get_tools()
         return self.tools
+gmailtool = GmailTool()
+gmailtool = gmailtool.run()

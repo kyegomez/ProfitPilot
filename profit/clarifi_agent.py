@@ -25,24 +25,18 @@ class Agent:
                  human_in_the_loop=False,
                  llama = False,
                  temperature = 0.5,
-                 openai_api_key = None,
                  ):
         self.human_in_the_loop = human_in_the_loop
         self.ai_name = ai_name
         self.ai_role = ai_role
 
         self.temperature = temperature
-        self.openai_api_key = openai_api_key
         self.llama = llama
 
         if self.llama is True:
             self.llm = ClarifiLLM()
         else:
-            self.llm = ChatOpenAI(
-                                model_name='gpt-4', 
-                                openai_api_key=self.openai_api_key, 
-                                temperature=self.temperature
-                            )
+            pass
 
         self.setup_tools(external_tools)
         self.setup_memory()
