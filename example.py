@@ -26,7 +26,7 @@ pilot = ProfitPilot(
     salesperson_name=SALESPERSON_NAME,
     human_in_the_loop=HUMAN_IN_THE_LOOP,
     llama=True,
-    # openai_api_key="key"
+    openai_api_key="key"
 )
 
 # Define the task you want the agent to perform

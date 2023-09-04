@@ -15,40 +15,32 @@ from langchain.tools.human.tool import HumanInputRun
 
 ROOT_DIR = "./data/"
 
+#gmail
+from langchain.agents.agent_toolkits import GmailToolkit
 from langchain.chains.qa_with_sources.loading import BaseCombineDocumentsChain
 from langchain.chat_models import ChatOpenAI
+from langchain.llms import Clarifai
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.tools import BaseTool, DuckDuckGoSearchRun
 from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
+from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
 from pydantic import Field
 
-##llama
-from profit.llama import LLama
-from profit.clarifi import ClarifiLLM
 
-#gmail
-from langchain.agents.agent_toolkits import GmailToolkit
-from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
-
-
-# llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
-
-llm = ClarifiLLM()
-
-# if llama:
-# llm = LLama()
-# else:
-#     self.llm = ChatOpenAI(model_name='gpt4', 
-#                         openai_api_key=self.openai_api_key, 
-#                         temperature=self.temperature)
+llm = Clarifai(
+    pat="890cdb0cb5aa4795ba51af9670120a1e", 
+    user_id="meta", 
+    app_id="Llama-2", 
+    model_id="llama2-70b-chat"
+)
 
 
 
 
 
-from langchain.agents.agent_toolkits import ZapierToolkit
-from langchain.utilities.zapier import ZapierNLAWrapper
+# from langchain.agents.agent_toolkits import ZapierToolkit
+# from langchain.utilities.zapier import ZapierNLAWrapper
 
 
 @contextmanager
@@ -174,37 +166,37 @@ query_website_tool = WebpageQATool(qa_chain=load_qa_with_sources_chain(llm))
 # web_search = DuckDuckGoSearchRun()
 
 # get from https://nla.zapier.com/docs/authentication/ after logging in):
-os.environ["ZAPIER_NLA_API_KEY"] = os.environ.get("ZAPIER_NLA_API_KEY", "")
+# os.environ["ZAPIER_NLA_API_KEY"] = os.environ.get("ZAPIER_NLA_API_KEY", "")
 
-zapier = ZapierNLAWrapper()
-zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
-zapier_tools = zapier_toolkit.get_tools()
-
-
+# zapier = ZapierNLAWrapper()
+# zapier_toolkit = ZapierToolkit.from_zapier_nla_wrapper(zapier)
+# zapier_tools = zapier_toolkit.get_tools()
 
 
-# Gmail
-class GmailTool:
-    def __init__(
-        self,
-        token_file:  str = "token.json",
-        scopes = ["https://mail.google.com/"],
-        client_secrets_file = "credientials.json",
-    ):
-        super().__init__()
-        self.token_file = token_file
-        self.scopes = scopes
-        self.client_secrets_file = client_secrets_file   
-    def run(self):
-        self.credentials = get_gmail_credentials(
-            token_file=self.token_file,
-            scopes=self.scopes,
-            client_secrets_file=self.client_secrets_file
-        )
 
-        self.api_resource = build_resource_service(credentials=self.credentials)
-        self.toolkit = GmailToolkit(api_resource=self.api_resource)
-        self.tools = self.toolkit.get_tools()
-        return self.tools
-gmailtool = GmailTool()
-gmailtool = gmailtool.run()
+
+# # Gmail
+# class GmailTool:
+#     def __init__(
+#         self,
+#         token_file:  str = "token.json",
+#         scopes = ["https://mail.google.com/"],
+#         client_secrets_file = "credientials.json",
+#     ):
+#         super().__init__()
+#         self.token_file = token_file
+#         self.scopes = scopes
+#         self.client_secrets_file = client_secrets_file   
+#     def run(self):
+#         self.credentials = get_gmail_credentials(
+#             token_file=self.token_file,
+#             scopes=self.scopes,
+#             client_secrets_file=self.client_secrets_file
+#         )
+
+#         self.api_resource = build_resource_service(credentials=self.credentials)
+#         self.toolkit = GmailToolkit(api_resource=self.api_resource)
+#         self.tools = self.toolkit.get_tools()
+#         return self.tools
+# gmailtool = GmailTool()
+# gmailtool = gmailtool.run()

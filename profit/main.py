@@ -1,38 +1,35 @@
 from profit.clarifi_agent import Agent
 
 class ProfitPilot:
-    def __init__(self,
-                 ai_name: str = None,
-                 ai_role: str = None,
-                 external_tools = None,
-                 company_name: str = None,
-                 company_values: str = None,
-                 conversation_type: str = None,
-                 conversation_purpose: str = None,
-                 company_business: str = None,
-                 salesperson_name: str = None,
-                 human_in_the_loop=False,
-                 openai_api_key: str = None,
-                 llama = True,
-                 conversation_history = None):
+    def __init__(
+            self,
+            ai_name: str = None,
+            ai_role: str = None,
+            external_tools = None,
+            company_name: str = None,
+            company_values: str = None,
+            conversation_type: str = None,
+            conversation_purpose: str = None,
+            company_business: str = None,
+            salesperson_name: str = None,
+            human_in_the_loop=False,
+            llama = True,
+            conversation_history = None,
+            openai_api_key: str = None,
+        ):
         super().__init__()
         self.external_tools = external_tools
         self.human_in_the_loop = human_in_the_loop
         self.ai_name = ai_name
         self.ai_role = ai_role
         self.company_name = company_name
-
         self.llama = llama
-
         self.conversation_history = conversation_history
-
         self.company_values = company_values
         self.conversation_type = conversation_type
         self.conversation_purpose = conversation_purpose
-
         self.company_business = company_business
         self.salesperson_name = salesperson_name
-
         self.openai_api_key = openai_api_key
 
         self.ai_role = f"""
