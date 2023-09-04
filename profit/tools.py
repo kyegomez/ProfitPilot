@@ -23,15 +23,18 @@ from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
 from pydantic import Field
 
+##llama
 from profit.llama import LLama
+from profit.clarifi import ClarifiLLM
 
 #gmail
 from langchain.agents.agent_toolkits import GmailToolkit
 from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
 
 
-llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
+# llm = ChatOpenAI(model_name="gpt-4", temperature=1.0)
 
+llm = ClarifiLLM()
 
 # if llama:
 # llm = LLama()
