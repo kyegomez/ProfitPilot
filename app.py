@@ -33,15 +33,14 @@ pilot = ProfitPilot(
     company_business=COMPANY_BUSINESS,
     salesperson_name=SALESPERSON_NAME,
     human_in_the_loop=HUMAN_IN_THE_LOOP,
-    prospect_name=PROSPECT_NAME  # Add the prospect's name as an argument
+    # prospect_name=PROSPECT_NAME  # Add the prospect's name as an argument
 )
 
 # Define the task you want the agent to perform
 # Adjusted for email format
 task = f"""
-Subject: Introducing {COMPANY_NAME}'s Newest Product—A Perfect Fit for {PROSPECT_NAME}
+Subject: Introducing {COMPANY_NAME}'s Newest Product—A Perfect Fit for you
 
-Hi {PROSPECT_NAME},
 
 I hope this email finds you well. My name is {SALESPERSON_NAME}, and I'm with {COMPANY_NAME}. We specialize in {COMPANY_BUSINESS}, and I'm excited to share some news that aligns closely with your values—{COMPANY_VALUES}.
 
